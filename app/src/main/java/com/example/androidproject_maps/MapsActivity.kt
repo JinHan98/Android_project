@@ -18,8 +18,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.database.*
 import java.io.IOException
 
+private lateinit var database: DatabaseReference//database reference
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var map: GoogleMap
@@ -59,6 +61,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         fusedLocationclient = LocationServices.getFusedLocationProviderClient(this)
+
+        //Database
+        var latitude : Double?
+        var longitude : Double?
+        database = FirebaseDatabase.getInstance().getReference("shops/")
+        val valeventlistener = object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                for(snapshot : DataSnapshot in p0.children){
+                    val value:Shop? = snapshot.getValue(Shop::class.java)
+                    latitude = value?.latitude?.toDouble()
+                    longitude = value?.longitude?.toDouble()
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
+        database.addValueEventListener(valeventlistener)
     }
     /*private fun placeMarkerOnMap(location: LatLng){
         val markerOptions = MarkerOptions().position(location)
