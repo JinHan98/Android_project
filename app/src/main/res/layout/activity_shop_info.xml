@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ShopInfoActivity">
-
     <ImageView
         android:id="@+id/imageView01"
         android:layout_width="408dp"
         android:layout_height="202dp"
         android:src="@drawable/foodtruck"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -22,16 +22,11 @@
     <ListView
         android:id="@+id/mainListView"
         android:layout_width="match_parent"
-        android:layout_height="345dp"
+        android:layout_height="531dp"
         android:layout_marginTop="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="@string/title_activity_maps" />
+        app:layout_constraintTop_toTopOf="parent">
+    </ListView>
 
 </LinearLayout>

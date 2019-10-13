@@ -1,12 +1,11 @@
 package com.example.androidproject_maps
 
+import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Point
-import android.location.Address
-import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -19,7 +18,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.*
-import java.io.IOException
+import kotlinx.android.synthetic.main.activity_maps.*
 
 private lateinit var database: DatabaseReference//database reference
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -27,7 +26,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private lateinit var map: GoogleMap
     private lateinit var lastLocation: Location
     private lateinit var fusedLocationclient:FusedLocationProviderClient
-    private var MapNumber = 1
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE =1
@@ -63,21 +61,52 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         fusedLocationclient = LocationServices.getFusedLocationProviderClient(this)
 
         //Database
-        var latitude : Double?
-        var longitude : Double?
+        var latitude : Double =0.0
+        var longitude : Double =0.0
+        var shopName : String
         database = FirebaseDatabase.getInstance().getReference("shops/")
         val valeventlistener = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 for(snapshot : DataSnapshot in p0.children){
                     val value:Shop? = snapshot.getValue(Shop::class.java)
-                    latitude = value?.latitude?.toDouble()
-                    longitude = value?.longitude?.toDouble()
+                    if (value != null) {
+                        latitude = value.latitude!!.toDouble()
+                    }
+                    if (value != null) {
+                        longitude = value.longitude!!.toDouble()
+                    }
+                    shopName = value?.shop_name.toString()
+                    val mOption =MarkerOptions().position(LatLng(latitude,longitude))
+                    mOption.title(shopName)
+                    map.addMarker(mOption)
+                    map.setOnMarkerClickListener(object :GoogleMap.OnMarkerClickListener {
+                        override fun onMarkerClick(p0: Marker?): Boolean {
+                            if(ShopButton.visibility==GONE){
+                                ShopButton.visibility= VISIBLE
+                            }
+                            else{
+                                ShopButton.visibility== GONE
+                            }
+                            return false
+                        }
+                    })
+                    map.setOnMapClickListener(object : GoogleMap.OnMapClickListener {
+                        override fun onMapClick(p0: LatLng?) {
+                            if(ShopButton.visibility== VISIBLE){
+                                ShopButton.visibility= GONE
+                            }
+                        }
+                    })
                 }
             }
 
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
+        }
+        ShopButton.setOnClickListener {
+            val intent = Intent(this,ShopInfoActivity::class.java)
+            startActivity(intent)
         }
         database.addValueEventListener(valeventlistener)
     }
@@ -87,7 +116,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         markerOptions.title(titleStr)
         map.addMarker(markerOptions)
     }*/
-    private fun getAddress(LatLng: LatLng): String{
+    /*private fun getAddress(LatLng: LatLng): String{
         val geocoder = Geocoder(this)
         val addresses : List<Address>?
         val address : Address?
@@ -105,12 +134,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             Log.e("MapsActivity", e.localizedMessage)
         }
         return addressText
-    }
+    }*/
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
         map.getUiSettings().setZoomControlsEnabled(true)
-        map.setOnMapClickListener (object : GoogleMap.OnMapClickListener{
+        /*map.setOnMapClickListener (object : GoogleMap.OnMapClickListener{
             override fun onMapClick(latLng : LatLng) {
                 var screenPt: Point = map.projection.toScreenLocation(latLng)
                 var mOption = MarkerOptions().position(map.projection.fromScreenLocation(screenPt))
@@ -118,7 +147,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 MapNumber++
                 map.addMarker(mOption)
             }
-        })
+        })*/
         setUpMap()
         map.isMyLocationEnabled =true
         fusedLocationclient.lastLocation.addOnSuccessListener(this) { location ->
