@@ -22,11 +22,19 @@
     <ListView
         android:id="@+id/mainListView"
         android:layout_width="match_parent"
-        android:layout_height="531dp"
+        android:layout_height="315dp"
         android:layout_marginTop="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+
     </ListView>
+
+    <Button
+        android:id="@+id/orderbt"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="@string/order_here" />
 
 </LinearLayout>

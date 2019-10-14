@@ -1,10 +1,12 @@
 package com.example.androidproject_maps
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_shop_info.*
 
 
 private lateinit var database: DatabaseReference
@@ -43,6 +45,11 @@ class ShopInfoActivity :AppCompatActivity() {
             }
         }
         database.addValueEventListener(valeventlistener)
+
+        orderbt.setOnClickListener{
+            val orderintent = Intent(this, Order::class.java)
+            startActivity(orderintent)
+        }
     }
 }
 

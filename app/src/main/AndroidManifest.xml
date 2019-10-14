@@ -15,10 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Order"
+            android:parentActivityName=".ShopInfoActivity"></activity>
         <activity
             android:name=".ShopInfoActivity"
-            android:label="Eat Whereable">
-        </activity>
+            android:label="Eat Whereable"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -29,14 +30,16 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDkKW9PUZLSqmdBHW0KLqqvKDlFnxin680" />
+            android:value="AIzaSyCjyBnLQkhRp8BHplAdR1RCh64KcnuVva4" />
 
         <activity
             android:name=".MapsActivity"
             android:label="Eat Whereable">
             <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
-                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
