@@ -27,6 +27,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private lateinit var lastLocation: Location
     private lateinit var fusedLocationclient:FusedLocationProviderClient
 
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE =1
     }
@@ -63,30 +64,65 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         //Database
         var latitude : Double =0.0
         var longitude : Double =0.0
+
         var shopName : String
+        var food_name : String
+        var price : String
+        var shopinfoArr : ArrayList<Shopinfo> = arrayListOf()
+        var targetNum  = 0
         database = FirebaseDatabase.getInstance().getReference("shops/")
         val valeventlistener = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 for(snapshot : DataSnapshot in p0.children){
                     val value:Shop? = snapshot.getValue(Shop::class.java)
+                    shopName = value?.shop_name.toString()
+                    var shopinfo = Shopinfo(shopName)
                     if (value != null) {
                         latitude = value.latitude!!.toDouble()
+
+
                     }
                     if (value != null) {
                         longitude = value.longitude!!.toDouble()
                     }
-                    shopName = value?.shop_name.toString()
+                    for(snapshot2 : DataSnapshot in snapshot.children){
+                        if(snapshot2.key.toString().equals("menus")){
+                            for(snapshot3 : DataSnapshot in snapshot2.children){
+                                val menus : Foodmenu? = snapshot3.getValue(Foodmenu::class.java)
+                                food_name = menus?.food_name.toString()
+                                price = menus?.price.toString()
+                                shopinfo.menuArr.add(MenuFood(food_name,price,"seapasta"))
+                            }
+                        }
+                    }
+
                     val mOption =MarkerOptions().position(LatLng(latitude,longitude))
                     mOption.title(shopName)
+                    shopinfoArr.add(shopinfo)
                     map.addMarker(mOption)
                     map.setOnMarkerClickListener(object :GoogleMap.OnMarkerClickListener {
                         override fun onMarkerClick(p0: Marker?): Boolean {
+                            for(shop in shopinfoArr){
+                                if(p0!!.title.equals(shop.name)){
+                                    targetNum = shopinfoArr.indexOf(shop)
+                                }
+                            }
+                            ShopButton.setOnClickListener {
+
+                                val intent = Intent(applicationContext,ShopInfoActivity::class.java)
+                                intent.putExtra("ShopName",shopinfoArr.get(targetNum).name)
+                                intent.putExtra("MenuArr",shopinfoArr.get(targetNum).menuArr)
+                                startActivity(intent)
+
+                            }
+
                             if(ShopButton.visibility==GONE){
                                 ShopButton.visibility= VISIBLE
                             }
                             else{
                                 ShopButton.visibility== GONE
                             }
+
                             return false
                         }
                     })
@@ -104,10 +140,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         }
-        ShopButton.setOnClickListener {
-            val intent = Intent(this,ShopInfoActivity::class.java)
-            startActivity(intent)
-        }
+
+
         database.addValueEventListener(valeventlistener)
     }
     /*private fun placeMarkerOnMap(location: LatLng){

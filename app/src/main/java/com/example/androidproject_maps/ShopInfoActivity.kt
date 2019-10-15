@@ -4,22 +4,29 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.Exclude
+import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.android.synthetic.main.activity_shop_info.*
 
 
 private lateinit var database: DatabaseReference
 class ShopInfoActivity :AppCompatActivity() {
-    var foodmenuList = arrayListOf<MenuFood>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop_info)
+        val shop_name = intent.extras.getString("ShopName")
+        val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
+        /*DB 레퍼런스 지정
+        database = FirebaseDatabase.getInstance().getReference("shops/")*/
 
-        database = FirebaseDatabase.getInstance().getReference("shops/")
-        val foodMenuAdapter = MainListAdapter(this, foodmenuList)
 
+        var adapter = MainListAdapter(this,menuArr)
+        var list : ListView = findViewById(R.id.mainListView)
+        list.setAdapter(adapter)
+        /*DB 데이터 빼오는 방법
         val valeventlistener = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 for(snapshot : DataSnapshot in p0.children){
@@ -45,9 +52,10 @@ class ShopInfoActivity :AppCompatActivity() {
             }
         }
         database.addValueEventListener(valeventlistener)
-
+        */
         orderbt.setOnClickListener{
             val orderintent = Intent(this, Order::class.java)
+            orderintent.putExtra("MenuArr",menuArr)
             startActivity(orderintent)
         }
     }
@@ -55,7 +63,7 @@ class ShopInfoActivity :AppCompatActivity() {
 
 
 @IgnoreExtraProperties
-data class Shop(
+data class Shop (
     var shop_name: String? = "",
     var latitude: String? = "",//위도
     var longitude: String? = "",//경도

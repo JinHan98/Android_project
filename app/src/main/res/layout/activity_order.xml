@@ -91,7 +91,7 @@
         app:srcCompat="@drawable/ic_arrow_downward_black_24dp" />
 
     <Button
-        android:id="@+id/paybutton"
+        android:id="@+id/paybutton2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="결제하기"
