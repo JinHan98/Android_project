@@ -11,6 +11,8 @@ import com.google.firebase.database.Exclude
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.android.synthetic.main.order_list.*
+import java.sql.Time
+import java.text.SimpleDateFormat
 
 private lateinit var database: DatabaseReference
 private lateinit var order_key : String
@@ -20,16 +22,16 @@ class Order : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_list)
+        //intent 받는 부분
         val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
+        val shopKey = intent.extras.getString("ShopKey")
 
-        database = FirebaseDatabase.getInstance().reference
-
+        database = FirebaseDatabase.getInstance().getReference("shops/"+shopKey+"/")
 
         val adapter = OrderListAdapter(this,menuArr)
-
+        //고객 폰 넘버 받아야하고
+        //요청 사항 받아야함
         orderlist.adapter = adapter
-
-
 
         paybutton.setOnClickListener{
 
@@ -40,7 +42,13 @@ class Order : AppCompatActivity() {
                 pay = pay + menuArr.get(i).price.toInt()*num
             }
             paytoast()
-            writeNewOrderInfo(pay.toString())
+            //주문 시간 구하기
+            var now = System.currentTimeMillis()
+            var timenow = Time(now)
+            var ordertimeDataFomat = SimpleDateFormat("hh:mm:ss a");
+            var orderTime = ordertimeDataFomat.format(timenow)
+            //db에 주문내역 올리기
+            writeNewOrderInfo(pay.toString(),"010-2456-1234","현금결제 할게요",orderTime)
             for(i in menuArr.indices){
                 val view = orderlist.getChildAt(i)
                 var editText : EditText = view.findViewById(R.id.editText)
@@ -60,7 +68,9 @@ class Order : AppCompatActivity() {
 @IgnoreExtraProperties
 data class OrderInfo (
     var pay : String? = "",
-
+    var phoneNum : String? = "",
+    var customerRequest : String? = "",
+    var ordertime : String? = "",
     var starCount: Int = 0,
     var stars: MutableMap<String, Boolean> = HashMap()
 ) {
@@ -69,13 +79,15 @@ data class OrderInfo (
     fun toMap(): Map<String, Any?> {
         return mapOf(
             "pay" to pay ,
-
+            "phoneNum" to phoneNum,
+            "customerRequest" to customerRequest,
+            "ordertime" to ordertime,
             "starCount" to starCount,
             "stars" to stars
         )
     }
 }
-private fun writeNewOrderInfo(pay: String) {
+private fun writeNewOrderInfo(pay: String,phoneNum: String,customerRequest: String?,ordertime: String) {
     // Create new post at /user-posts/$userid/$postid and at
     // /posts/$postid simultaneously
     val key = database.child("orders").push().key
@@ -85,14 +97,26 @@ private fun writeNewOrderInfo(pay: String) {
         return
     }
 
-    val order = OrderInfo(pay)
-    val orderValues = order.toMap()
+    var customerRequestNull : String
+    if(customerRequest == null){
+        customerRequestNull = "요청사항 없음"
+        val order = OrderInfo(pay,phoneNum,customerRequestNull,ordertime)
+        val orderValues = order.toMap()
 
-    val childUpdates = HashMap<String, Any>()
-    childUpdates["/orders/$key"] = orderValues
+        val childUpdates = HashMap<String, Any>()
+        childUpdates["/orders/$key"] = orderValues
+        database.updateChildren(childUpdates)
 
+    }
+    else {
+        val order = OrderInfo(pay, phoneNum, customerRequest,ordertime)
+        val orderValues = order.toMap()
 
-    database.updateChildren(childUpdates)
+        val childUpdates = HashMap<String, Any>()
+        childUpdates["/orders/$key"] = orderValues
+        database.updateChildren(childUpdates)
+    }
+
 }
 @IgnoreExtraProperties
 data class OrderMenu(

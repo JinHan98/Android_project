@@ -64,19 +64,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         //Database
         var latitude : Double =0.0
         var longitude : Double =0.0
-
+        var shopKey : String?
         var shopName : String
         var food_name : String
         var price : String
         var shopinfoArr : ArrayList<Shopinfo> = arrayListOf()
         var targetNum  = 0
         database = FirebaseDatabase.getInstance().getReference("shops/")
+        
         val valeventlistener = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 for(snapshot : DataSnapshot in p0.children){
                     val value:Shop? = snapshot.getValue(Shop::class.java)
                     shopName = value?.shop_name.toString()
-                    var shopinfo = Shopinfo(shopName)
+                    shopKey = snapshot.key //key값 받아내기  중요
+                    var shopinfo = Shopinfo(shopName,shopKey!!)//DB에 shop 추가할때 무조건 key값이 생기니까 널일수없다
                     if (value != null) {
                         latitude = value.latitude!!.toDouble()
 
@@ -110,6 +112,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                             ShopButton.setOnClickListener {
 
                                 val intent = Intent(applicationContext,ShopInfoActivity::class.java)
+                                intent.putExtra("ShopKey",shopinfoArr.get(targetNum).shopKey)
                                 intent.putExtra("ShopName",shopinfoArr.get(targetNum).name)
                                 intent.putExtra("MenuArr",shopinfoArr.get(targetNum).menuArr)
                                 startActivity(intent)

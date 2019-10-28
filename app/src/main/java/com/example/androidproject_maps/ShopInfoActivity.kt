@@ -19,6 +19,8 @@ class ShopInfoActivity :AppCompatActivity() {
         setContentView(R.layout.activity_shop_info)
         val shop_name = intent.extras.getString("ShopName")
         val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
+        val shopKey = intent.extras.getString("ShopKey")
+
         /*DB 레퍼런스 지정
         database = FirebaseDatabase.getInstance().getReference("shops/")*/
 
@@ -53,9 +55,11 @@ class ShopInfoActivity :AppCompatActivity() {
         }
         database.addValueEventListener(valeventlistener)
         */
+
         orderbt.setOnClickListener{
             val orderintent = Intent(this, Order::class.java)
             orderintent.putExtra("MenuArr",menuArr)
+            orderintent.putExtra("ShopKey",shopKey)
             startActivity(orderintent)
         }
     }
