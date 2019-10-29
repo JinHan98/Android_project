@@ -9,8 +9,8 @@ android {
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.example.androidproject_maps"
-        minSdkVersion 27
-        targetSdkVersion 27
+        minSdkVersion 26
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
