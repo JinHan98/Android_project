@@ -95,14 +95,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                         if(snapshot2.key.toString().equals("menus")){
                             for(snapshot3 : DataSnapshot in snapshot2.children){
                                 val menus : Foodmenu? = snapshot3.getValue(Foodmenu::class.java)
-
+                                /*
                                 var menuKey =  snapshot3.key
                                 var db = FirebaseDatabase.getInstance().getReference("shops/"+shopKey+"/"+"menus/"+menuKey+"/imageUri/")
                                 db.setValue("https://firebasestorage.googleapis.com/v0/b/androidproject-49d96.appspot.com/o/-LsCewxmuHDno9GJMsil%2FMenuImage%2F-LsCh-lzKMaqsZoespQm%2Fseapasta.jpg?alt=media&token=49798db4-b103-4b59-8c00-10ddd4372bdc")
-
+                                */
                                 food_name = menus?.food_name.toString()
                                 price = menus?.price.toString()
-                                shopinfo.menuArr.add(MenuFood(food_name,price,"d"))
+                                shopinfo.menuArr.add(MenuFood(food_name,price,"seapasta"))
                             }
                         }
                     }

@@ -5,12 +5,11 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_shop_info.*
 
 
@@ -23,6 +22,10 @@ class ShopInfoActivity :AppCompatActivity() {
         val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
         val shopKey = intent.extras.getString("ShopKey")
 
+        var adapter = MainListAdapter(this,menuArr)
+        var list : ListView = findViewById(R.id.mainListView)
+        list.setAdapter(adapter)
+        /*
         // Reference to an image file in Cloud Storage
         val storageShopImgRef = FirebaseStorage.getInstance().reference
 
@@ -34,7 +37,7 @@ class ShopInfoActivity :AppCompatActivity() {
         }.addOnFailureListener {
             // Handle any errors
         }
-
+        */
 
 
 

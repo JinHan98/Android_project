@@ -1,7 +1,6 @@
 package com.example.androidproject_maps
 
 import android.content.Context
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,9 @@ class MainListAdapter (val context: Context, val MenuFoodList: ArrayList<MenuFoo
         val foodPrice = view.findViewById<TextView>(R.id.foodPriceTv)
 
         val menuFood = MenuFoodList[position]
-        foodPhoto.setImageURI(Uri.parse(menuFood.uri))
+        val resourceId = context.resources.getIdentifier(menuFood.photo,"drawable",context.packageName)
+        foodPhoto.setImageResource(resourceId)
+        /*foodPhoto.setImageURI(Uri.parse(menuFood.uri))*/
         foodName.text = menuFood.name
         foodPrice.text = menuFood.price
 
