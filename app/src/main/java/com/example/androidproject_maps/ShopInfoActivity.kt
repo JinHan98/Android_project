@@ -1,14 +1,16 @@
 package com.example.androidproject_maps
 
+
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.ListView
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_shop_info.*
 
 
@@ -21,40 +23,20 @@ class ShopInfoActivity :AppCompatActivity() {
         val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
         val shopKey = intent.extras.getString("ShopKey")
 
-        /*DB 레퍼런스 지정
-        database = FirebaseDatabase.getInstance().getReference("shops/")*/
+        // Reference to an image file in Cloud Storage
+        val storageShopImgRef = FirebaseStorage.getInstance().reference
 
+        // ImageView in your Activity
+        val imageView = findViewById<ImageView>(R.id.imageView01)
 
-        var adapter = MainListAdapter(this,menuArr)
-        var list : ListView = findViewById(R.id.mainListView)
-        list.setAdapter(adapter)
-        /*DB 데이터 빼오는 방법
-        val valeventlistener = object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-                for(snapshot : DataSnapshot in p0.children){
-                    val value:Shop? = snapshot.getValue(Shop::class.java)
-                    val key = snapshot.key.toString()
-                    for(snapshot2 : DataSnapshot in snapshot.children){
-                        if(snapshot2.key.toString().equals("menus")){
-                            for(snapshot3 : DataSnapshot in snapshot2.children){
-                                val menus : Foodmenu? = snapshot3.getValue(Foodmenu::class.java)
-                                val foodname = menus?.food_name
-                                val price = menus?.price
-                                foodmenuList.add(MenuFood(foodname!!,price!!,"seapasta"))
-                                foodMenuAdapter.notifyDataSetChanged()
-                            }
-                        }
-                    }
-
-                }
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+        storageShopImgRef.child(shopKey+"/ShopImage/").downloadUrl.addOnSuccessListener {
+            imageView.setImageURI(it)
+        }.addOnFailureListener {
+            // Handle any errors
         }
-        database.addValueEventListener(valeventlistener)
-        */
+
+
+
 
         orderbt.setOnClickListener{
             val orderintent = Intent(this, Order::class.java)
@@ -64,7 +46,6 @@ class ShopInfoActivity :AppCompatActivity() {
         }
     }
 }
-
 
 @IgnoreExtraProperties
 data class Shop (
@@ -110,6 +91,7 @@ private fun writeNewshop(shop_name: String, latitude: String, longitude: String)
 data class Foodmenu(
     var food_name: String? = "",
     var price: String? = "",//위도
+    var imageUri : String? = "",
     var starCount: Int = 0,
     var stars: MutableMap<String, Boolean> = HashMap()
 ) {
@@ -119,12 +101,13 @@ data class Foodmenu(
         return mapOf(
             "food_name" to food_name ,
             "price" to price,
+            "imageUri" to imageUri,
             "starCount" to starCount,
             "stars" to stars
         )
     }
 }
-private fun writeNewfoodmenu(food_name: String, price: String, shopKey : String) {
+private fun writeNewfoodmenu(food_name: String, price: String, imageUri : String, shopKey : String) {
     // Create new post at /user-posts/$userid/$postid and at
     // /posts/$postid simultaneously
     val key = database.child("shops/menus").push().key
@@ -133,7 +116,7 @@ private fun writeNewfoodmenu(food_name: String, price: String, shopKey : String)
         return
     }
 
-    val foodmenu = Foodmenu(food_name, price)
+    val foodmenu = Foodmenu(food_name, price,imageUri)
     val foodmenuValues = foodmenu.toMap()
 
     val childUpdates = HashMap<String, Any>()

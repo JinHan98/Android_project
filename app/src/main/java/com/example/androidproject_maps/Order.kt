@@ -71,6 +71,7 @@ data class OrderInfo (
     var phoneNum : String? = "",
     var customerRequest : String? = "",
     var ordertime : String? = "",
+    var status : Int = 0,//0 대기중(수락대기중) 1 처리중(요리중) 2 완료 (음식이 나감)
     var starCount: Int = 0,
     var stars: MutableMap<String, Boolean> = HashMap()
 ) {
@@ -82,6 +83,7 @@ data class OrderInfo (
             "phoneNum" to phoneNum,
             "customerRequest" to customerRequest,
             "ordertime" to ordertime,
+            "status" to status,
             "starCount" to starCount,
             "stars" to stars
         )
