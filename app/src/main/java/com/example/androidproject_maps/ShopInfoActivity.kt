@@ -3,6 +3,7 @@ package com.example.androidproject_maps
 
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.widget.ListView
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_shop_info.*
 
 
@@ -25,10 +27,23 @@ class ShopInfoActivity :AppCompatActivity() {
         var adapter = MainListAdapter(this,menuArr)
         var list : ListView = findViewById(R.id.mainListView)
         list.setAdapter(adapter)
-        /*
-        // Reference to an image file in Cloud Storage
-        val storageShopImgRef = FirebaseStorage.getInstance().reference
 
+
+        /* Reference to an image file in Cloud Storage*/
+        val storage = FirebaseStorage.getInstance().reference
+        var storageShopImgRef = storage.child("images").child("foodtruck.png")
+
+        /*메모리에 다운로드 앱이 꺼지면 날라감*/
+
+        var ONE_MEGABYTE : Long = 1024*1024
+        storageShopImgRef?.getBytes(ONE_MEGABYTE).addOnCompleteListener{
+            if(it.isSuccessful) {
+            }
+            imageView01.setImageBitmap(BitmapFactory.decodeByteArray(it.result!!,0,it.result!!.size))
+            adapter.notifyDataSetChanged()
+        }
+
+        /*스토리지 downLoad Url 방법
         // ImageView in your Activity
         val imageView = findViewById<ImageView>(R.id.imageView01)
 
@@ -38,6 +53,12 @@ class ShopInfoActivity :AppCompatActivity() {
             // Handle any errors
         }
         */
+        /*
+        Glide.with(this)
+            .load(storageShopImgRef)
+            .into(imageView01)
+        */
+
 
 
 

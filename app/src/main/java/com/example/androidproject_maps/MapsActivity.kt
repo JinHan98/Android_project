@@ -83,6 +83,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
 
                     var shopinfo = Shopinfo(shopName,shopKey!!)//DB에 shop 추가할때 무조건 key값이 생기니까 널일수없다
+                    shopinfo.shopKey = shopKey.toString()
                     if (value != null) {
                         latitude = value.latitude!!.toDouble()
 
