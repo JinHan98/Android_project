@@ -15,11 +15,12 @@
 
     <Button
         android:id="@+id/ShopButton"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:text="주문하러가기"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp" />
+        android:layout_marginBottom="0dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="주문하러가기"
+        android:visibility="gone" />
 
 </RelativeLayout>

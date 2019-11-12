@@ -1,39 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ShopInfoActivity">
+
     <ImageView
         android:id="@+id/imageView01"
-        android:layout_width="408dp"
+        android:layout_width="match_parent"
         android:layout_height="202dp"
         android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/mainListView"
         android:layout_width="match_parent"
-        android:layout_height="315dp"
-        android:layout_marginTop="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/shopdetailbt"
+        app:layout_constraintVertical_bias="0.486">
 
 
     </ListView>
 
     <Button
         android:id="@+id/orderbt"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="@string/order_here" />
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="60dp"
+        android:background="@drawable/circle_button"
+        android:backgroundTint="@color/colorAccent"
+        android:text="장바구니"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintLeft_toLeftOf="@id/imageView01"
+        app:layout_constraintTop_toBottomOf="@id/shop_name"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/reviewbt"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/circle_button"
+        android:backgroundTint="@color/colorAccent"
+        android:text="리뷰"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shop_name"/>
+
+    <Button
+        android:id="@+id/shopdetailbt"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@drawable/circle_button"
+        android:backgroundTint="@color/colorAccent"
+        android:text="가게상세"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shop_name"/>
+
+    <TextView
+        android:id="@+id/shop_name"
+        android:layout_width="232dp"
+        android:layout_height="46dp"
+        android:text="가게이름"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/orderbt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView01" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

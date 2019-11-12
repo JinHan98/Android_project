@@ -20,15 +20,14 @@ class ShopInfoActivity :AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop_info)
-        val shop_name = intent.extras.getString("ShopName")
+        val shopName = intent.extras.getString("ShopName")
         val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
         val shopKey = intent.extras.getString("ShopKey")
 
         var adapter = MainListAdapter(this,menuArr)
         var list : ListView = findViewById(R.id.mainListView)
         list.setAdapter(adapter)
-
-
+        shop_name.text = shopName
         /* Reference to an image file in Cloud Storage*/
         val storage = FirebaseStorage.getInstance().reference
         var storageShopImgRef = storage.child("images").child("foodtruck.png")
@@ -67,6 +66,18 @@ class ShopInfoActivity :AppCompatActivity() {
             orderintent.putExtra("MenuArr",menuArr)
             orderintent.putExtra("ShopKey",shopKey)
             startActivity(orderintent)
+        }
+
+        reviewbt.setOnClickListener{
+            val reviewintent = Intent(this, ReviewActivity::class.java)
+            reviewintent.putExtra("ShopKey",shopKey)
+            startActivity(reviewintent)
+        }
+
+        shopdetailbt.setOnClickListener{
+            val shopdetailintent = Intent(this, ShopDetailActivity::class.java)
+            shopdetailintent.putExtra("ShopKey",shopKey)
+            startActivity(shopdetailintent)
         }
     }
 }
