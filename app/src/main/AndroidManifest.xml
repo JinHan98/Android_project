@@ -15,9 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShopDetailActivity"></activity>
-        <activity android:name=".ShopDetail" />
+        <activity android:name=".PaymentActivity"></activity>
+        <activity android:name=".ShopDetailActivity" />
         <activity android:name=".ReviewActivity" />
+        <activity android:name=".ShopDetail" />
 
         <uses-library
             android:name="org.apache.http.legacy"

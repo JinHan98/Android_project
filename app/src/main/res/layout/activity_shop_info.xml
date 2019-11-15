@@ -30,8 +30,27 @@
         app:layout_constraintTop_toBottomOf="@+id/shopdetailbt"
         app:layout_constraintVertical_bias="0.486">
 
-
     </ListView>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="6dp"
+        android:background="#CCCCCC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderbt" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="6dp"
+        android:background="#CCCCCC"
+        app:layout_constraintBottom_toTopOf="@+id/orderbt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/orderbt"
@@ -70,13 +89,13 @@
         app:layout_constraintTop_toBottomOf="@id/shop_name"/>
 
     <TextView
-        android:id="@+id/shop_name"
-        android:layout_width="232dp"
-        android:layout_height="46dp"
-        android:text="가게이름"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:textStyle="bold"
+    android:id="@+id/shop_name"
+    android:layout_width="232dp"
+    android:layout_height="46dp"
+    android:text="가게이름"
+    android:textAlignment="center"
+    android:textSize="30sp"
+    android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/orderbt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

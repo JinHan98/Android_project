@@ -1,7 +1,9 @@
 package com.example.androidproject_maps
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
@@ -55,6 +57,11 @@ class Order : AppCompatActivity() {
                 var num = editText.text.toString()
                 writeNewOrderMenu(menuArr.get(i).name,num, order_key)
             }
+
+            Handler().postDelayed({},4000)
+            val paymentintent = Intent(this, PaymentActivity::class.java)
+            paymentintent.putExtra("ShopKey",shopKey)
+            startActivity(paymentintent)
         }
 
     }
@@ -63,6 +70,7 @@ class Order : AppCompatActivity() {
 
 
         Toast.makeText(this,"결제금액 :${pay}원", Toast.LENGTH_SHORT).show()
+        pay = 0
     }
 }
 @IgnoreExtraProperties
