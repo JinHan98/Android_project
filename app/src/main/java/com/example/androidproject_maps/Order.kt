@@ -19,14 +19,19 @@ import java.text.SimpleDateFormat
 private lateinit var database: DatabaseReference
 private lateinit var order_key : String
 class Order : AppCompatActivity() {
-
+    private lateinit var menuArr : ArrayList<MenuFood>
+    private lateinit var shopKey : String
+    private lateinit var uid : String
+    private lateinit var shopName : String
     var pay : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_list)
         //intent 받는 부분
-        val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
-        val shopKey = intent.extras.getString("ShopKey")
+        menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
+        shopKey = intent.extras.getString("ShopKey")
+        uid = intent.extras.getString("uid")
+        shopName = intent.extras.getString("ShopName")
 
         database = FirebaseDatabase.getInstance().getReference("shops/"+shopKey+"/")
 
@@ -58,7 +63,6 @@ class Order : AppCompatActivity() {
                 writeNewOrderMenu(menuArr.get(i).name,num, order_key)
             }
 
-            Handler().postDelayed({},4000)
             val paymentintent = Intent(this, PaymentActivity::class.java)
             paymentintent.putExtra("ShopKey",shopKey)
             startActivity(paymentintent)
@@ -70,7 +74,16 @@ class Order : AppCompatActivity() {
 
 
         Toast.makeText(this,"결제금액 :${pay}원", Toast.LENGTH_SHORT).show()
+        Handler().postDelayed({},4000)
         pay = 0
+    }
+
+    override fun onBackPressed() {
+        val shopinfoIntent = Intent(this@Order,ShopInfoActivity::class.java)
+        shopinfoIntent.putExtra("ShopKey",shopKey)
+        shopinfoIntent.putExtra("ShopName",shopName)
+        shopinfoIntent.putExtra("MenuArr", menuArr)
+        super.onBackPressed()
     }
 }
 @IgnoreExtraProperties

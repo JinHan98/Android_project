@@ -15,6 +15,51 @@
       },
       "oauth_client": [
         {
+          "client_id": "95521268619-otcdmb7u9o99dffqccn6cirgoipv5qo4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.androidproject_maps",
+            "certificate_hash": "7f29f9bce0e02840f68fc69d97dcac41b4ee9fb1"
+          }
+        },
+        {
+          "client_id": "95521268619-gs5tfh7onci46u8e3spj00v5usqtv7bl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAYiFCP7Tb-PTS3s9m_zgskTjcX5o3tJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95521268619-gs5tfh7onci46u8e3spj00v5usqtv7bl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95521268619:android:c202ae67edc9880f55058e",
+        "android_client_info": {
+          "package_name": "com.example.eatswhereowner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95521268619-mak8qn0ebcgljjud4lj7gagvtjmra2k5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eatswhereowner",
+            "certificate_hash": "7f29f9bce0e02840f68fc69d97dcac41b4ee9fb1"
+          }
+        },
+        {
           "client_id": "95521268619-gs5tfh7onci46u8e3spj00v5usqtv7bl.apps.googleusercontent.com",
           "client_type": 3
         }
