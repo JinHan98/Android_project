@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/imageView01"
-        android:layout_width="match_parent"
-        android:layout_height="202dp"
+        android:layout_width="412dp"
+        android:layout_height="184dp"
         android:contentDescription="@string/app_name"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,85 +18,91 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <ListView
         android:id="@+id/mainListView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="294dp"
+        android:layout_marginTop="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shopdetailbt"
-        app:layout_constraintVertical_bias="0.486">
+        app:layout_constraintTop_toBottomOf="@+id/view8">
 
     </ListView>
 
-
     <View
+        android:id="@+id/view8"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="16dp"
         android:background="#CCCCCC"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orderbt" />
-
 
     <View
         android:id="@+id/view6"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="16dp"
         android:background="#CCCCCC"
         app:layout_constraintBottom_toTopOf="@+id/orderbt"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/orderbt"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginTop="72dp"
         android:background="@drawable/circle_button"
         android:backgroundTint="@color/colorAccent"
         android:text="장바구니"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintLeft_toLeftOf="@id/imageView01"
-        app:layout_constraintTop_toBottomOf="@id/shop_name"/>
+        app:layout_constraintTop_toBottomOf="@id/shop_name" />
 
     <Button
         android:id="@+id/reviewbt"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="56dp"
         android:background="@drawable/circle_button"
         android:backgroundTint="@color/colorAccent"
         android:text="리뷰"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shop_name"/>
+        app:layout_constraintTop_toBottomOf="@id/shop_name" />
 
     <Button
         android:id="@+id/shopdetailbt"
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:layout_marginTop="72dp"
         android:background="@drawable/circle_button"
         android:backgroundTint="@color/colorAccent"
         android:text="가게상세"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shop_name"/>
+        app:layout_constraintTop_toBottomOf="@id/shop_name" />
 
     <TextView
-    android:id="@+id/shop_name"
-    android:layout_width="232dp"
-    android:layout_height="46dp"
-    android:text="가게이름"
-    android:textAlignment="center"
-    android:textSize="30sp"
-    android:textStyle="bold"
+        android:id="@+id/shop_name"
+        android:layout_width="232dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="가게이름"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/orderbt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,14 +110,32 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="135dp"
-        android:layout_height="46dp"
+        android:layout_width="133dp"
+        android:layout_height="38dp"
         android:layout_marginStart="60dp"
         app:layout_constraintBottom_toTopOf="@+id/shopdetailbt"
         app:layout_constraintEnd_toStartOf="@+id/shop_name"
+        app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView01"
+        app:layout_constraintVertical_bias="0.181"
         app:srcCompat="@drawable/foodtruck" />
+
+    <RatingBar
+        android:id="@+id/ratingBar2"
+        style="@android:style/Widget.Material.RatingBar"
+        android:layout_width="235dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="6dp"
+        android:numStars="5"
+        android:rating="5"
+        android:stepSize="0.5"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/view6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shop_name"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

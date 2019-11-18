@@ -10,16 +10,17 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="Eat Whereable"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_launcher_fticon"
+        android:label="이츠 웨어"
+        android:roundIcon="@mipmap/ic_launcher_fticon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".MypageActivity"></activity>
+        <activity android:name=".Review_item_Activity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".PaymentActivity" />
         <activity android:name=".ShopDetailActivity" />
         <activity android:name=".ReviewActivity" />
-        />
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -27,8 +28,7 @@
 
         <activity
             android:name=".Order"
-            android:parentActivityName=".ShopInfoActivity"
-            />
+            android:parentActivityName=".ShopInfoActivity" />
         <activity
             android:name=".ShopInfoActivity"
             android:label="Eat Whereable"
@@ -47,7 +47,7 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="Eat Whereable" />
+            android:label="Eats Where" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">

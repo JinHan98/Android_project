@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/shop_detail"
             android:layout_width="93dp"
             android:layout_height="37dp"
             android:layout_marginStart="16dp"
