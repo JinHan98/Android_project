@@ -62,6 +62,7 @@ class Order : AppCompatActivity() {
                 var num = editText.text.toString()
                 writeNewOrderMenu(menuArr.get(i).name,num, order_key)
             }
+            pay = 0
 
             val paymentintent = Intent(this, PaymentActivity::class.java)
             paymentintent.putExtra("ShopKey",shopKey)
@@ -75,7 +76,6 @@ class Order : AppCompatActivity() {
 
         Toast.makeText(this,"결제금액 :${pay}원", Toast.LENGTH_SHORT).show()
         Handler().postDelayed({},4000)
-        pay = 0
     }
 
     override fun onBackPressed() {

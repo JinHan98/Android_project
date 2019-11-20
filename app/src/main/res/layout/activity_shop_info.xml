@@ -7,135 +7,265 @@
     android:layout_height="match_parent"
     tools:context=".ShopInfoActivity">
 
-    <ImageView
-        android:id="@+id/imageView01"
-        android:layout_width="412dp"
-        android:layout_height="184dp"
-        android:contentDescription="@string/app_name"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <ListView
-        android:id="@+id/mainListView"
-        android:layout_width="wrap_content"
-        android:layout_height="294dp"
-        android:layout_marginTop="17dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view8">
-
-    </ListView>
-
-    <View
-        android:id="@+id/view8"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="16dp"
-        android:background="#CCCCCC"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderbt" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <View
-        android:id="@+id/view6"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginBottom="16dp"
-        android:background="#CCCCCC"
-        app:layout_constraintBottom_toTopOf="@+id/orderbt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="222dp">
 
-    <Button
-        android:id="@+id/orderbt"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginTop="72dp"
-        android:background="@drawable/circle_button"
-        android:backgroundTint="@color/colorAccent"
-        android:text="장바구니"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintLeft_toLeftOf="@id/imageView01"
-        app:layout_constraintTop_toBottomOf="@id/shop_name" />
+            <ImageView
+                android:id="@+id/imageView01"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/reviewbt"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="56dp"
-        android:background="@drawable/circle_button"
-        android:backgroundTint="@color/colorAccent"
-        android:text="리뷰"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shop_name" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/shopdetailbt"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="72dp"
-        android:background="@drawable/circle_button"
-        android:backgroundTint="@color/colorAccent"
-        android:text="가게상세"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shop_name" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/shop_name"
-        android:layout_width="232dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        android:text="가게이름"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/orderbt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView01" />
+            <TextView
+                    android:id="@+id/shop_name"
+                    android:layout_width="232dp"
+                    android:layout_height="46dp"
+                    android:text="가게이름"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="133dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/shopdetailbt"
-        app:layout_constraintEnd_toStartOf="@+id/shop_name"
-        app:layout_constraintHorizontal_bias="0.582"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView01"
-        app:layout_constraintVertical_bias="0.181"
-        app:srcCompat="@drawable/foodtruck" />
+            <RatingBar
+                    android:id="@+id/ratingBar2"
+                    style="@android:style/Widget.Material.RatingBar"
+                    android:layout_width="235dp"
+                    android:layout_height="53dp"
+                    android:numStars="5"
+                    android:rating="5"
+                    android:stepSize="0.5"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/shop_name" />
 
-    <RatingBar
-        android:id="@+id/ratingBar2"
-        style="@android:style/Widget.Material.RatingBar"
-        android:layout_width="235dp"
-        android:layout_height="53dp"
-        android:layout_marginBottom="6dp"
-        android:numStars="5"
-        android:rating="5"
-        android:stepSize="0.5"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/view6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shop_name"
-        app:layout_constraintVertical_bias="0.0" />
+            <ImageButton
+                    android:id="@+id/orderbt"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/circle_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@mipmap/ic_launcher_carticon_round" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/menubt"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="60dp"
+                android:background="@drawable/circle_button"
+                android:backgroundTint="@color/colorAccent"
+                android:text="메뉴"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/shopdetailbt"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/circle_button"
+                android:backgroundTint="@color/colorAccent"
+                android:text="정보"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/reviewbt"
+                app:layout_constraintStart_toEndOf="@+id/menubt" />
+
+            <Button
+                android:id="@+id/reviewbt"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="60dp"
+                android:background="@drawable/circle_button"
+                android:backgroundTint="@color/colorAccent"
+                android:text="리뷰"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/Linear_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <ListView
+                    android:id="@+id/mainListView"
+                    android:layout_width="413dp"
+                    android:layout_height="match_parent">
+
+                </ListView>
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:id="@+id/Linear_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="invisible">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout5"
+                        android:layout_width="409dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorAccent"
+                        android:backgroundTint="@color/colorAccent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/shop_detail"
+                            android:layout_width="93dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="가게소개"
+                            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="414dp"
+                        android:layout_height="120dp"
+                        android:text="2만원 이상 주문시 쿨피스 서비스 등등"
+                        android:background = "@drawable/border"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout6"
+                        android:layout_width="409dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorAccent"
+                        android:backgroundTint="@color/colorAccent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view4">
+
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="93dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="영업정보"
+                            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="414dp"
+                        android:layout_height="120dp"
+                        android:background="@drawable/border"
+                        android:text="운영시간, 휴무일, 전화번호"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout7"
+                        android:layout_width="409dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorAccent"
+                        android:backgroundTint="@color/colorAccent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view5">
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="93dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="사업자정보"
+                            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="414dp"
+                        android:layout_height="120dp"
+                        android:background="@drawable/border"
+                        android:text="대표자명, 상호명, 사업자주소, 사업자등록번호"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/constraintLayout7" />
+
+                </LinearLayout>
+            </ScrollView>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/Linear_review"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="invisible"></LinearLayout>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

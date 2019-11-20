@@ -51,7 +51,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="scalingPercent" value="144" />
+                                                <entry key="scalingPercent" value="148" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -64,8 +64,8 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="foregroundImage" value="C:\eatswhere\Android_project\app\src\main\res\drawable\settings_icon.png" />
-                                      <entry key="outputName" value="ic_launcher_sticon" />
+                                      <entry key="foregroundImage" value="C:\Android_project\app\src\main\res\drawable\cart_icon.jpg" />
+                                      <entry key="outputName" value="ic_launcher_carticon" />
                                     </map>
                                   </option>
                                 </PersistentState>

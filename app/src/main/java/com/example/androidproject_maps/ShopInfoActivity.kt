@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.View
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,26 @@ class ShopInfoActivity :AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop_info)
+
+        menubt.setOnClickListener{
+            Linear_menu.visibility = View.VISIBLE
+            Linear_detail.visibility = View.INVISIBLE
+            Linear_review.visibility = View.INVISIBLE
+        }
+
+        shopdetailbt.setOnClickListener{
+            Linear_menu.visibility = View.INVISIBLE
+            Linear_detail.visibility = View.VISIBLE
+            Linear_review.visibility = View.INVISIBLE
+        }
+
+        reviewbt.setOnClickListener{
+            Linear_menu.visibility = View.INVISIBLE
+            Linear_detail.visibility = View.INVISIBLE
+            Linear_review.visibility = View.VISIBLE
+        }
+
+
         val shopName = intent.extras.getString("ShopName")
         val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
         val shopKey = intent.extras.getString("ShopKey")
@@ -75,17 +96,7 @@ class ShopInfoActivity :AppCompatActivity() {
             }
         }
 
-        reviewbt.setOnClickListener{
-            val reviewintent = Intent(this, ReviewActivity::class.java)
-            reviewintent.putExtra("ShopKey",shopKey)
-            startActivity(reviewintent)
-        }
 
-        shopdetailbt.setOnClickListener{
-            val shopdetailintent = Intent(this, ShopDetailActivity::class.java)
-            shopdetailintent.putExtra("ShopKey",shopKey)
-            startActivity(shopdetailintent)
-        }
     }
     override fun onStart() {//oncreate 다음에 호출  액티비티가 사용자에게 보여지기 직전에 호출됨
         super.onStart()

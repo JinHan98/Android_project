@@ -25,7 +25,7 @@
       </configuration>
     </facet>
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false" pureKotlinSourceFolders="C:\eatswhere\Android_project\app\src\debug\kotlin;C:\eatswhere\Android_project\app\src\debug\java;C:\eatswhere\Android_project\app\src\release\kotlin;C:\eatswhere\Android_project\app\src\release\java;C:\eatswhere\Android_project\app\src\debugAndroidTest\kotlin;C:\eatswhere\Android_project\app\src\debugUnitTest\kotlin;C:\eatswhere\Android_project\app\src\releaseUnitTest\kotlin">
+      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false" pureKotlinSourceFolders="C:\Android_project\app\src\debug\kotlin;C:\Android_project\app\src\debug\java;C:\Android_project\app\src\release\kotlin;C:\Android_project\app\src\release\java;C:\Android_project\app\src\debugAndroidTest\kotlin;C:\Android_project\app\src\debugUnitTest\kotlin;C:\Android_project\app\src\releaseUnitTest\kotlin">
         <compilerSettings>
           <option name="additionalArguments" value="-Xallow-no-source-files" />
         </compilerSettings>
