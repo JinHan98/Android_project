@@ -8,9 +8,10 @@
 
     <ListView
         android:id="@+id/orderlist"
-        android:layout_width="402dp"
-        android:layout_height="402dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="410dp"
+        android:layout_height="352dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/paybutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

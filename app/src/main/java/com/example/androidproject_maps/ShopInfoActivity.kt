@@ -35,19 +35,19 @@ class ShopInfoActivity :AppCompatActivity() {
         setContentView(R.layout.activity_shop_info)
 
         menubt.setOnClickListener{
-            Linear_menu.visibility = View.VISIBLE
+            mainListView.visibility = View.VISIBLE
             Linear_detail.visibility = View.INVISIBLE
             Linear_review.visibility = View.INVISIBLE
         }
 
         shopdetailbt.setOnClickListener{
-            Linear_menu.visibility = View.INVISIBLE
+            mainListView.visibility = View.INVISIBLE
             Linear_detail.visibility = View.VISIBLE
             Linear_review.visibility = View.INVISIBLE
         }
 
         reviewbt.setOnClickListener{
-            Linear_menu.visibility = View.INVISIBLE
+            mainListView.visibility = View.INVISIBLE
             Linear_detail.visibility = View.INVISIBLE
             Linear_review.visibility = View.VISIBLE
         }

@@ -118,23 +118,16 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/Linear_menu"
+            <ListView
+                android:id="@+id/mainListView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="visible">
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:scrollbars="none">
 
-                <ListView
-                    android:id="@+id/mainListView"
-                    android:layout_width="413dp"
-                    android:layout_height="match_parent">
-
-                </ListView>
-
-            </LinearLayout>
+            </ListView>
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -176,8 +169,8 @@
                         android:id="@+id/textView12"
                         android:layout_width="414dp"
                         android:layout_height="120dp"
+                        android:background="@drawable/border"
                         android:text="2만원 이상 주문시 쿨피스 서비스 등등"
-                        android:background = "@drawable/border"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />

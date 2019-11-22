@@ -5,13 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.IgnoreExtraProperties
+import kotlinx.android.synthetic.main.order_item.*
 import kotlinx.android.synthetic.main.order_list.*
 import java.sql.Time
 import java.text.SimpleDateFormat
@@ -34,39 +34,47 @@ class Order : AppCompatActivity() {
         shopName = intent.extras.getString("ShopName")
 
         database = FirebaseDatabase.getInstance().getReference("shops/"+shopKey+"/")
-
-        val adapter = OrderListAdapter(this,menuArr)
+        var amounts : Array<Int> = Array(menuArr.size,{0})
+        val adapter = OrderListAdapter(this,menuArr,amounts)
         //고객 폰 넘버 받아야하고
         //요청 사항 받아야함
         orderlist.adapter = adapter
 
+
+
+
+
         paybutton.setOnClickListener{
 
             for(i in menuArr.indices ){
-                val view = orderlist.getChildAt(i)
-                var editText : EditText = view.findViewById(R.id.editText)
-                var num : Int = editText.text.toString().toInt()
-                pay = pay + menuArr.get(i).price.toInt()*num
+                pay = pay + menuArr.get(i).price.toInt()*amounts[i]
             }
-            paytoast()
-            //주문 시간 구하기
-            var now = System.currentTimeMillis()
-            var timenow = Time(now)
-            var ordertimeDataFomat = SimpleDateFormat("hh:mm:ss a");
-            var orderTime = ordertimeDataFomat.format(timenow)
-            //db에 주문내역 올리기
-            writeNewOrderInfo(pay.toString(),"010-2456-1234","현금결제 할게요",orderTime)
-            for(i in menuArr.indices){
-                val view = orderlist.getChildAt(i)
-                var editText : EditText = view.findViewById(R.id.editText)
-                var num = editText.text.toString()
-                writeNewOrderMenu(menuArr.get(i).name,num, order_key)
-            }
-            pay = 0
+            if(pay != 0) {
+                paytoast()
+                //주문 시간 구하기
+                var now = System.currentTimeMillis()
+                var timenow = Time(now)
+                var ordertimeDataFomat = SimpleDateFormat("hh:mm:ss a");
+                var orderTime = ordertimeDataFomat.format(timenow)
+                //db에 주문내역 올리기
+                writeNewOrderInfo(pay.toString(), "010-2456-1234", "현금결제 할게요", orderTime)
+                for (i in menuArr.indices) {
+                    val view = orderlist.getChildAt(i)
+                    var num = order_amounts.text.toString()
+                    writeNewOrderMenu(menuArr.get(i).name, num, order_key)
+                }
 
-            val paymentintent = Intent(this, PaymentActivity::class.java)
-            paymentintent.putExtra("ShopKey",shopKey)
-            startActivity(paymentintent)
+
+                val paymentintent = Intent(this, PaymentActivity::class.java)
+                paymentintent.putExtra("ShopKey", shopKey)
+                paymentintent.putExtra("Pay", pay)
+                startActivity(paymentintent)
+            }
+            else{
+                Toast.makeText(this,"주문하실 매뉴의 수량을 선택하여 주세요", Toast.LENGTH_SHORT).show()
+                Handler().postDelayed({},8000)
+            }
+
         }
 
     }
@@ -85,6 +93,7 @@ class Order : AppCompatActivity() {
         shopinfoIntent.putExtra("MenuArr", menuArr)
         super.onBackPressed()
     }
+
 }
 @IgnoreExtraProperties
 data class OrderInfo (
