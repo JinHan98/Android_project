@@ -200,7 +200,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         fusedLocationclient.lastLocation.addOnSuccessListener(this) { location ->
             if (location != null){
                 lastLocation = location
-                val currentLatLng = LatLng(location.latitude,location.longitude)
+                val currentLatLng = LatLng(location.latitude,location.longitude)//이게 실시간현재 위치
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,
                     16f))
             }
