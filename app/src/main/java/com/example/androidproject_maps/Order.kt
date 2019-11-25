@@ -57,7 +57,7 @@ class Order : AppCompatActivity() {
                 var ordertimeDataFomat = SimpleDateFormat("hh:mm:ss a");
                 var orderTime = ordertimeDataFomat.format(timenow)
                 //db에 주문내역 올리기
-                writeNewOrderInfo(pay.toString(), "010-2456-1234", "현금결제 할게요", orderTime)
+                writeNewOrderInfo(pay.toString(), "0", customer_request_View.text.toString(), orderTime)
                 for (i in menuArr.indices) {
                     val view = orderlist.getChildAt(i)
                     var num = order_amounts.text.toString()
@@ -68,6 +68,8 @@ class Order : AppCompatActivity() {
                 val paymentintent = Intent(this, PaymentActivity::class.java)
                 paymentintent.putExtra("ShopKey", shopKey)
                 paymentintent.putExtra("Pay", pay)
+                paymentintent.putExtra("Uid",uid)
+                paymentintent.putExtra("OrderKey", order_key)
                 startActivity(paymentintent)
             }
             else{
@@ -87,11 +89,11 @@ class Order : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         val shopinfoIntent = Intent(this@Order,ShopInfoActivity::class.java)
         shopinfoIntent.putExtra("ShopKey",shopKey)
         shopinfoIntent.putExtra("ShopName",shopName)
         shopinfoIntent.putExtra("MenuArr", menuArr)
-        super.onBackPressed()
     }
 
 }

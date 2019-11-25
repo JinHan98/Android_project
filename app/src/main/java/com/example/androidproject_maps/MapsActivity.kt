@@ -26,7 +26,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private lateinit var map: GoogleMap
     private lateinit var lastLocation: Location
     private lateinit var fusedLocationclient:FusedLocationProviderClient
-
+    var mCurrentLocation = Location("Current Location")
+    val DISTANCE = 1000.00//1km  이내에 상점들 리스트뷰에 띄울것
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE =1
@@ -61,6 +62,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
         fusedLocationclient = LocationServices.getFusedLocationProviderClient(this)
 
+
+
         //Database
         var latitude : Double =0.0
         var longitude : Double =0.0
@@ -73,80 +76,106 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         database = FirebaseDatabase.getInstance().getReference("shops/")
         
         val valeventlistener = object : ValueEventListener {
+            //구글 맵 밑에 리스트 뷰
+            var shoplist_listview = arrayListOf<Shopinfo>()
+            var shopLocation = Location("Shop Location")
             override fun onDataChange(p0: DataSnapshot) {
                 shopinfoArr.clear()
-                for(snapshot : DataSnapshot in p0.children){
-                    val value:Shop? = snapshot.getValue(Shop::class.java)
-                    shopName = value?.shop_name.toString()
-                    shopKey = snapshot.key //key값 받아내기  중요
-
-
-
-                    var shopinfo = Shopinfo(shopName,shopKey!!)//DB에 shop 추가할때 무조건 key값이 생기니까 널일수없다
-                    shopinfo.shopKey = shopKey.toString()
+                for(snapshot : DataSnapshot in p0.children) {
+                    val value: Shop? = snapshot.getValue(Shop::class.java)
                     if (value != null) {
+                        shopName = value?.shop_name.toString()
+                        shopKey = snapshot.key //key값 받아내기  중요
+
+
+                        var shopinfo =
+                            Shopinfo(shopName, shopKey!!)//DB에 shop 추가할때 무조건 key값이 생기니까 널일수없다
+                        shopinfo.shopKey = shopKey.toString()
+                        shopinfo.photoUrl = value.photourl
+                        shopinfo.shopRate = value.rating!!
+
                         latitude = value.latitude!!.toDouble()
+                        shopLocation.latitude = latitude
 
 
-                    }
-                    if (value != null) {
                         longitude = value.longitude!!.toDouble()
-                    }
-                    for(snapshot2 : DataSnapshot in snapshot.children){
-                        if(snapshot2.key.toString().equals("menus")){
-                            for(snapshot3 : DataSnapshot in snapshot2.children){
-                                val menus : Foodmenu? = snapshot3.getValue(Foodmenu::class.java)
-                                /*
+                        shopLocation.longitude = longitude
+
+                        var distance = mCurrentLocation.distanceTo(shopLocation)
+                        if (distance < DISTANCE) {//현재 위치와 1km 이내에 있는 shop이라면
+                            shoplist_listview.add(shopinfo)
+                        }
+
+
+                        for (snapshot2: DataSnapshot in snapshot.children) {
+                            if (snapshot2.key.toString().equals("menus")) {
+                                for (snapshot3: DataSnapshot in snapshot2.children) {
+                                    val menus: Foodmenu? = snapshot3.getValue(Foodmenu::class.java)
+                                    /*
                                 var menuKey =  snapshot3.key
                                 var db = FirebaseDatabase.getInstance().getReference("shops/"+shopKey+"/"+"menus/"+menuKey+"/imageUri/")
                                 db.setValue("https://firebasestorage.googleapis.com/v0/b/androidproject-49d96.appspot.com/o/-LsCewxmuHDno9GJMsil%2FMenuImage%2F-LsCh-lzKMaqsZoespQm%2Fseapasta.jpg?alt=media&token=49798db4-b103-4b59-8c00-10ddd4372bdc")
                                 */
-                                food_name = menus?.food_name.toString()
-                                price = menus?.price.toString()
-                                shopinfo.menuArr.add(MenuFood(food_name,price,"seapasta"))
-                            }
-                        }
-                    }
+                                    food_name = menus?.food_name.toString()
+                                    price = menus?.price.toString()
 
-                    val mOption =MarkerOptions().position(LatLng(latitude,longitude))
-                    mOption.title(shopName)
-                    shopinfoArr.add(shopinfo)
-                    map.addMarker(mOption)
-                    map.setOnMarkerClickListener(object :GoogleMap.OnMarkerClickListener {
-                        override fun onMarkerClick(p0: Marker?): Boolean {
-                            for(shop in shopinfoArr){
-                                if(p0!!.title.equals(shop.name)){
-                                    targetNum = shopinfoArr.indexOf(shop)
+                                    shopinfo.menuArr.add(
+                                        MenuFood(
+                                            food_name,
+                                            price,
+                                            menus?.photourl!!
+                                        )
+                                    )
                                 }
                             }
-                            ShopButton.setOnClickListener {
-
-                                val intent = Intent(applicationContext,ShopInfoActivity::class.java)
-                                intent.putExtra("ShopKey",shopinfoArr.get(targetNum).shopKey)
-                                intent.putExtra("ShopName",shopinfoArr.get(targetNum).name)
-                                intent.putExtra("MenuArr",shopinfoArr.get(targetNum).menuArr)
-                                startActivity(intent)
-
-                            }
-
-                            if(ShopButton.visibility==GONE){
-                                ShopButton.visibility= VISIBLE
-                            }
-                            else{
-                                ShopButton.visibility== GONE
-                            }
-
-                            return false
                         }
-                    })
-                    map.setOnMapClickListener(object : GoogleMap.OnMapClickListener {
-                        override fun onMapClick(p0: LatLng?) {
-                            if(ShopButton.visibility== VISIBLE){
-                                ShopButton.visibility= GONE
+
+                        val mOption = MarkerOptions().position(LatLng(latitude, longitude))
+                        mOption.title(shopName)
+                        shopinfoArr.add(shopinfo)
+                        map.addMarker(mOption)
+                        map.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+                            override fun onMarkerClick(p0: Marker?): Boolean {
+                                for (shop in shopinfoArr) {
+                                    if (p0!!.title.equals(shop.name)) {
+                                        targetNum = shopinfoArr.indexOf(shop)
+                                    }
+                                }
+                                ShopButton.setOnClickListener {
+
+                                    val intent =
+                                        Intent(applicationContext, ShopInfoActivity::class.java)
+                                    intent.putExtra("ShopKey", shopinfoArr.get(targetNum).shopKey)
+                                    intent.putExtra("ShopName", shopinfoArr.get(targetNum).name)
+                                    intent.putExtra("MenuArr", shopinfoArr.get(targetNum).menuArr)
+                                    intent.putExtra("ShopRating",shopinfoArr.get(targetNum).shopRate)
+                                    startActivity(intent)
+
+                                }
+
+                                if (ShopButton.visibility == GONE) {
+                                    ShopButton.visibility = VISIBLE
+                                } else {
+                                    ShopButton.visibility == GONE
+                                }
+
+                                return false
                             }
-                        }
-                    })
+                        })
+                        map.setOnMapClickListener(object : GoogleMap.OnMapClickListener {
+                            override fun onMapClick(p0: LatLng?) {
+                                if (ShopButton.visibility == VISIBLE) {
+                                    ShopButton.visibility = GONE
+                                }
+                            }
+                        })
+                    }
+
+
                 }
+                //근처 1km 상점 리스트뷰에 뜨게하기
+                var shopviewlistAdapter = ShopviewlistAdapter(this@MapsActivity,shoplist_listview)
+                shopviewlist.adapter = shopviewlistAdapter
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -201,6 +230,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             if (location != null){
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude,location.longitude)//이게 실시간현재 위치
+                mCurrentLocation.latitude = currentLatLng.latitude
+                mCurrentLocation.longitude = currentLatLng.longitude
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,
                     16f))
             }

@@ -11,7 +11,6 @@ import android.view.View
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.Exclude
@@ -23,8 +22,6 @@ import kotlinx.android.synthetic.main.activity_shop_info.*
 private lateinit var database: DatabaseReference
 class ShopInfoActivity :AppCompatActivity() {
 
-    private val RC_SIGN_IN: Int = 10
-    private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var mFirebaseauth: FirebaseAuth
     private lateinit var mAuthStateListener : FirebaseAuth.AuthStateListener
     private lateinit var mDatabaseReference: DatabaseReference
@@ -56,16 +53,17 @@ class ShopInfoActivity :AppCompatActivity() {
         val shopName = intent.extras.getString("ShopName")
         val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
         val shopKey = intent.extras.getString("ShopKey")
+        val shopRating = intent.extras.getFloat("ShopRating")
+        ratingBar2.rating = shopRating
         mFirebaseauth = FirebaseAuth.getInstance()
         initFBAuthState()
-        var adapter = MainListAdapter(this,menuArr)
+        var adapter = MainListAdapter(this,menuArr,shopKey)
         var list : ListView = findViewById(R.id.mainListView)
         list.setAdapter(adapter)
         shop_name.text = shopName
         /* Reference to an image file in Cloud Storage*/
         val storage = FirebaseStorage.getInstance().reference
-        var storageShopImgRef = storage.child("images").child("foodtruck.png")
-
+        var storageShopImgRef = storage.child("images").child(shopKey).child("ShopImg").child("foodtruck.png")
         /*메모리에 다운로드 앱이 꺼지면 날라감*/
 
         var ONE_MEGABYTE : Long = 1024*1024
@@ -131,8 +129,8 @@ data class Shop (
     var shop_name: String? = "",
     var latitude: String? = "",//위도
     var longitude: String? = "",//경도
-
-    var starCount: Int = 0,
+    var rating: Float? = 0.toFloat() ,
+    var photourl : String = "",
     var stars: MutableMap<String, Boolean> = HashMap()
 ) {
 
@@ -142,22 +140,22 @@ data class Shop (
             "shop_name" to shop_name ,
             "latitude" to latitude,
             "longitude" to longitude,
-
-            "starCount" to starCount,
+            "photourl" to photourl,
+            "rating" to rating,
             "stars" to stars
         )
     }
 }
-private fun writeNewshop(shop_name: String, latitude: String, longitude: String) {
+private fun writeNewshop(shop_name: String, latitude: String, longitude: String, rating: Float, photourl: String) {
     // Create new post at /user-posts/$userid/$postid and at
     // /posts/$postid simultaneously
-    val key = database.child("posts").push().key
+    val key = database.child("shops").push().key
     if (key == null) {
         Log.w(ContentValues.TAG, "Couldn't get push key for shops")
         return
     }
 
-    val shop = Shop(shop_name, latitude, longitude)
+    val shop = Shop(shop_name, latitude, longitude,rating,photourl)
     val shopValues = shop.toMap()
 
     val childUpdates = HashMap<String, Any>()
@@ -170,7 +168,7 @@ private fun writeNewshop(shop_name: String, latitude: String, longitude: String)
 data class Foodmenu(
     var food_name: String? = "",
     var price: String? = "",//위도
-    var imageUri : String? = "",
+    var photourl : String? = "",
     var starCount: Int = 0,
     var stars: MutableMap<String, Boolean> = HashMap()
 ) {
@@ -180,13 +178,13 @@ data class Foodmenu(
         return mapOf(
             "food_name" to food_name ,
             "price" to price,
-            "imageUri" to imageUri,
+            "imageUri" to photourl,
             "starCount" to starCount,
             "stars" to stars
         )
     }
 }
-private fun writeNewfoodmenu(food_name: String, price: String, imageUri : String, shopKey : String) {
+private fun writeNewfoodmenu(food_name: String, price: String, shopKey : String,photourl : String) {
     // Create new post at /user-posts/$userid/$postid and at
     // /posts/$postid simultaneously
     val key = database.child("shops/menus").push().key
@@ -195,7 +193,7 @@ private fun writeNewfoodmenu(food_name: String, price: String, imageUri : String
         return
     }
 
-    val foodmenu = Foodmenu(food_name, price,imageUri)
+    val foodmenu = Foodmenu(food_name, price,photourl)
     val foodmenuValues = foodmenu.toMap()
 
     val childUpdates = HashMap<String, Any>()

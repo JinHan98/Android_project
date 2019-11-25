@@ -5,10 +5,10 @@ import java.io.Serializable
 class MenuFood( )  : Serializable{
     var name : String = ""
     var price : String = ""
-    var photo : String = ""
+    var photourl : String = ""
     constructor(name: String,price:String,photo:String):this(){
         this.name = name
         this.price = price
-        this.photo = photo
+        this.photourl = photo
     }
 }
