@@ -20,6 +20,7 @@ class MainListAdapter (val context: Context, val MenuFoodList: ArrayList<MenuFoo
         val menuFood = MenuFoodList[position]
         val photourl = MenuFoodList[position].photourl
 
+
         var storageShopImgRef = FirebaseStorage.getInstance().getReference(photourl)
         /*메모리에 다운로드 앱이 꺼지면 날라감*/
 

@@ -27,7 +27,7 @@
     <ListView
         android:id="@+id/shopviewlist"
         android:layout_width="match_parent"
-        android:layout_height="301dp"
+        android:layout_height="257dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp" />
 

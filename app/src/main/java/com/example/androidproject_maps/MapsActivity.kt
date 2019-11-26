@@ -96,10 +96,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
                         latitude = value.latitude!!.toDouble()
                         shopLocation.latitude = latitude
+                        shopinfo.latitude=latitude
 
 
                         longitude = value.longitude!!.toDouble()
                         shopLocation.longitude = longitude
+                        shopinfo.longitude=longitude
 
                         var distance = mCurrentLocation.distanceTo(shopLocation)
                         if (distance < DISTANCE) {//현재 위치와 1km 이내에 있는 shop이라면
@@ -176,6 +178,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 //근처 1km 상점 리스트뷰에 뜨게하기
                 var shopviewlistAdapter = ShopviewlistAdapter(this@MapsActivity,shoplist_listview)
                 shopviewlist.adapter = shopviewlistAdapter
+                shopviewlist.setOnItemClickListener { parent, view, position, id ->
+                    var latLng =LatLng(shoplist_listview[position].latitude,shoplist_listview[position].longitude)
+                    map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+                    for (shop in shopinfoArr) {
+                        if (shoplist_listview[position].name.equals(shop.name)) {
+                            targetNum = shopinfoArr.indexOf(shop)
+                        }
+                    }
+                    ShopButton.setOnClickListener {
+
+                        val intent =
+                            Intent(applicationContext, ShopInfoActivity::class.java)
+                        intent.putExtra("ShopKey", shopinfoArr.get(targetNum).shopKey)
+                        intent.putExtra("ShopName", shopinfoArr.get(targetNum).name)
+                        intent.putExtra("MenuArr", shopinfoArr.get(targetNum).menuArr)
+                        intent.putExtra("ShopRating",shopinfoArr.get(targetNum).shopRate)
+                        startActivity(intent)
+
+                    }
+
+                    if (ShopButton.visibility == GONE) {
+                        ShopButton.visibility = VISIBLE
+                    } else {
+                        ShopButton.visibility == GONE
+                    }
+                }
             }
 
             override fun onCancelled(p0: DatabaseError) {

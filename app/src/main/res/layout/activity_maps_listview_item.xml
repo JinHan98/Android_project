@@ -27,7 +27,6 @@
         app:layout_constraintStart_toEndOf="@+id/foodPhotoImg"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Breed" />
-
     <RatingBar
         android:id="@+id/maps_ratingBar"
         style="@android:style/Widget.Material.RatingBar"
@@ -37,6 +36,7 @@
         android:rating="5"
         android:stepSize="0.5"
         android:textAlignment="center"
+        android:isIndicator="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
