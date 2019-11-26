@@ -189,7 +189,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                             targetShop = shop.name
                             for ( i in 0 .. shopviewlist.size-1) {
                                 if (shopviewlist[i].foodNameTv.text.equals(targetShop)) {
-                                    shopviewlist[i].setBackgroundColor(Color.rgb(255, 255, 153))
+                                    shopviewlist[i].setBackgroundColor(Color.rgb(194, 194, 194))
                                 } else {
                                     shopviewlist[i].setBackgroundColor(Color.WHITE)
                                 }

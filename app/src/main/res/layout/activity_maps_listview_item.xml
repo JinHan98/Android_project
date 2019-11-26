@@ -30,10 +30,11 @@
 
     <RatingBar
         android:id="@+id/maps_ratingBar"
-        style="@style/Widget.AppCompat.RatingBar"
+        style="@style/Widget.AppCompat.RatingBar.Small"
 
-        android:layout_width="235dp"
-        android:layout_height="53dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:isIndicator="true"
         android:numStars="5"
         android:rating="5"
@@ -41,8 +42,6 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@id/foodNameTv"
         app:layout_constraintTop_toTopOf="parent" />
 
 

@@ -111,7 +111,7 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/circle_button"
         android:backgroundTint="@color/colorAccent"
-        android:text="직접결제"
+        android:text="현금결제"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
