@@ -30,12 +30,6 @@ class ShopviewlistAdapter (val context: Context, val shoplist: ArrayList<Shopinf
             shopPhoto.setImageBitmap(BitmapFactory.decodeByteArray(it.result!!,0,it.result!!.size))
         }
         shopRate.rating = shoplist.get(position).shopRate
-        if(view.id==position){
-            view.setBackgroundColor(Color.YELLOW)
-        }
-        else{
-            view.setBackgroundColor(Color.WHITE)
-        }
 
         return view
 

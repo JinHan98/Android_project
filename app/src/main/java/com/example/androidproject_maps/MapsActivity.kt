@@ -2,12 +2,15 @@ package com.example.androidproject_maps
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.view.get
+import androidx.core.view.size
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -19,6 +22,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_maps.*
+import kotlinx.android.synthetic.main.activity_maps_listview_item.view.*
 
 private lateinit var database: DatabaseReference//database reference
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -113,11 +117,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                             if (snapshot2.key.toString().equals("menus")) {
                                 for (snapshot3: DataSnapshot in snapshot2.children) {
                                     val menus: Foodmenu? = snapshot3.getValue(Foodmenu::class.java)
-                                    /*
-                                var menuKey =  snapshot3.key
-                                var db = FirebaseDatabase.getInstance().getReference("shops/"+shopKey+"/"+"menus/"+menuKey+"/imageUri/")
-                                db.setValue("https://firebasestorage.googleapis.com/v0/b/androidproject-49d96.appspot.com/o/-LsCewxmuHDno9GJMsil%2FMenuImage%2F-LsCh-lzKMaqsZoespQm%2Fseapasta.jpg?alt=media&token=49798db4-b103-4b59-8c00-10ddd4372bdc")
-                                */
+
                                     food_name = menus?.food_name.toString()
                                     price = menus?.price.toString()
 
@@ -136,6 +136,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                         mOption.title(shopName)
                         shopinfoArr.add(shopinfo)
                         map.addMarker(mOption)
+
                         map.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
                             override fun onMarkerClick(p0: Marker?): Boolean {
                                 for (shop in shopinfoArr) {
@@ -181,11 +182,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 shopviewlist.setOnItemClickListener { parent, view, position, id ->
                     var latLng =LatLng(shoplist_listview[position].latitude,shoplist_listview[position].longitude)
                     map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+                    var targetShop : String
                     for (shop in shopinfoArr) {
                         if (shoplist_listview[position].name.equals(shop.name)) {
                             targetNum = shopinfoArr.indexOf(shop)
+                            targetShop = shop.name
+                            for ( i in 0 .. shopviewlist.size-1) {
+                                if (shopviewlist[i].foodNameTv.text.equals(targetShop)) {
+                                    shopviewlist[i].setBackgroundColor(Color.rgb(255, 255, 153))
+                                } else {
+                                    shopviewlist[i].setBackgroundColor(Color.WHITE)
+                                }
+                            }
                         }
                     }
+
                     ShopButton.setOnClickListener {
 
                         val intent =

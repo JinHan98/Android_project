@@ -12,7 +12,9 @@
         android:layout_height="match_parent"
         android:src="@drawable/eats_where_down_none"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="fitXY"
+        />
 
     <ProgressBar
         android:id="@+id/progressBar"
