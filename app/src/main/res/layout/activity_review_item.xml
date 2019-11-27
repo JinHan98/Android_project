@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="사용자이름"
+        android:fontFamily="@font/ttadak"
         app:layout_constraintBottom_toTopOf="@+id/client_level"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,6 +56,7 @@
         android:layout_width="366dp"
         android:layout_height="100dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/ttadak"
         android:text="다음에 또 이용하고싶어요 너무 맛있어요~"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

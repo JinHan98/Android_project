@@ -34,29 +34,32 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                    android:id="@+id/shop_name"
-                    android:layout_width="232dp"
-                    android:layout_height="46dp"
-                    android:text="가게이름"
-                    android:textAlignment="center"
-                    android:textSize="30sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/shop_name"
+                android:layout_width="232dp"
+                android:layout_height="46dp"
+                android:fontFamily="@font/binggrae"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="가게이름"
+                android:textAlignment="center"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <RatingBar
-                    android:id="@+id/ratingBar2"
-                    style="@android:style/Widget.Material.RatingBar"
-                    android:layout_width="235dp"
-                    android:layout_height="53dp"
-                    android:numStars="5"
-                    android:rating="5"
-                    android:stepSize="0.5"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/shop_name" />
+                android:id="@+id/ratingBar2"
+                style="@android:style/Widget.Material.RatingBar"
+                android:layout_width="235dp"
+                android:layout_height="53dp"
+                android:background="@color/common_google_signin_btn_text_dark_default"
+                android:numStars="5"
+                android:rating="5"
+                android:stepSize="0.5"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shop_name" />
 
             <ImageButton
                     android:id="@+id/orderbt"
@@ -78,12 +81,12 @@
 
             <Button
                 android:id="@+id/menubt"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:layout_marginStart="60dp"
                 android:background="@drawable/circle_button"
-                android:backgroundTint="@color/colorAccent"
                 android:text="메뉴"
+                android:fontFamily="@font/binggrae"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -91,24 +94,25 @@
 
             <Button
                 android:id="@+id/shopdetailbt"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:background="@drawable/circle_button"
-                android:backgroundTint="@color/colorAccent"
                 android:text="정보"
+                android:fontFamily="@font/binggrae"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/reviewbt"
-                app:layout_constraintStart_toEndOf="@+id/menubt" />
+                app:layout_constraintStart_toEndOf="@+id/menubt"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/reviewbt"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:layout_marginEnd="60dp"
                 android:background="@drawable/circle_button"
-                android:backgroundTint="@color/colorAccent"
                 android:text="리뷰"
+                android:fontFamily="@font/binggrae"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -146,7 +150,6 @@
                         android:layout_width="409dp"
                         android:layout_height="40dp"
                         android:background="@color/colorAccent"
-                        android:backgroundTint="@color/colorAccent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -158,6 +161,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:text="가게소개"
+                            android:fontFamily="@font/binggrae"
                             android:textColor="@color/common_google_signin_btn_text_dark_focused"
                             android:textSize="18sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -170,7 +174,9 @@
                         android:layout_width="414dp"
                         android:layout_height="120dp"
                         android:background="@drawable/border"
+                        android:fontFamily="@font/ttadak"
                         android:text="2만원 이상 주문시 쿨피스 서비스 등등"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
@@ -180,7 +186,6 @@
                         android:layout_width="409dp"
                         android:layout_height="40dp"
                         android:background="@color/colorAccent"
-                        android:backgroundTint="@color/colorAccent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/view4">
@@ -192,6 +197,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:text="영업정보"
+                            android:fontFamily="@font/binggrae"
                             android:textColor="@color/common_google_signin_btn_text_dark_focused"
                             android:textSize="18sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -205,7 +211,9 @@
                         android:layout_width="414dp"
                         android:layout_height="120dp"
                         android:background="@drawable/border"
+                        android:fontFamily="@font/ttadak"
                         android:text="운영시간, 휴무일, 전화번호"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
@@ -216,7 +224,6 @@
                         android:layout_width="409dp"
                         android:layout_height="40dp"
                         android:background="@color/colorAccent"
-                        android:backgroundTint="@color/colorAccent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/view5">
@@ -228,6 +235,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:text="사업자정보"
+                            android:fontFamily="@font/binggrae"
                             android:textColor="@color/common_google_signin_btn_text_dark_focused"
                             android:textSize="18sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -240,7 +248,9 @@
                         android:layout_width="414dp"
                         android:layout_height="120dp"
                         android:background="@drawable/border"
+                        android:fontFamily="@font/ttadak"
                         android:text="대표자명, 상호명, 사업자주소, 사업자등록번호"
+                        android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -256,7 +266,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="invisible"></LinearLayout>
+            android:visibility="invisible">
+
+
+            <ListView
+                android:id="@+id/Review_ListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </ListView>
+
+        </LinearLayout>
 
     </LinearLayout>
 

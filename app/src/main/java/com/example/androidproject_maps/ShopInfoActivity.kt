@@ -59,6 +59,7 @@ class ShopInfoActivity :AppCompatActivity() {
         initFBAuthState()
         var adapter = MainListAdapter(this,menuArr,shopKey)
         var list : ListView = findViewById(R.id.mainListView)
+
         list.setAdapter(adapter)
         shop_name.text = shopName
         /* Reference to an image file in Cloud Storage*/
@@ -198,6 +199,48 @@ private fun writeNewfoodmenu(food_name: String, price: String, shopKey : String,
 
     val childUpdates = HashMap<String, Any>()
     childUpdates["/shops/"+shopKey+"/menus/$key"] = foodmenuValues
+
+
+    database.updateChildren(childUpdates)
+}
+@IgnoreExtraProperties
+data class Review (
+    var client_name: String = "",
+    var client_uid : String = "",
+    var rating: Float = 0.toFloat() ,
+    var client_rating_url : String = "",
+    var photourl : String = "",
+    var review_text : String = "",
+
+    var stars: MutableMap<String, Boolean> = HashMap()
+) {
+
+    @Exclude
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+            "client_name" to client_name ,
+            "client_uid" to client_uid,
+            "rating" to rating,
+            "client_rating_url" to client_rating_url,
+            "photourl" to photourl,
+            "review_text" to review_text
+        )
+    }
+}
+private fun writeNewReview(client_name : String , client_uid : String,rating : Float,client_rating_url: String,photourl: String,review_text: String) {
+    // Create new post at /user-posts/$userid/$postid and at
+    // /posts/$postid simultaneously
+    val key = database.child("reviews").push().key
+    if (key == null) {
+        Log.w(ContentValues.TAG, "Couldn't get push key for reviews")
+        return
+    }
+
+    val Review = Review(client_name, client_uid, rating ,client_rating_url,photourl,review_text)
+    val reviewValues = Review.toMap()
+
+    val childUpdates = HashMap<String, Any>()
+    childUpdates["/reviews/$key"] = reviewValues
 
 
     database.updateChildren(childUpdates)

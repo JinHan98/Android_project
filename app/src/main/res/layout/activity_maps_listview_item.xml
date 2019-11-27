@@ -23,6 +23,7 @@
         android:layout_marginStart="16dp"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:fontFamily="@font/ttadak"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/foodPhotoImg"
         app:layout_constraintTop_toTopOf="parent"

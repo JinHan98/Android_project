@@ -21,6 +21,7 @@
         android:layout_marginBottom="0dp"
         android:backgroundTint="@color/colorAccent"
         android:text="주문하러가기"
+        android:fontFamily="@font/binggrae"
         android:textSize="24sp"
         android:visibility="gone" />
 
