@@ -14,6 +14,7 @@
         android:text="결제하기"
         android:textSize="36sp"
         android:textStyle="bold"
+        android:fontFamily="@font/binggrae"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,6 +49,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:text="결제금액"
+            android:fontFamily="@font/binggrae"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/constraintLayout2"
@@ -73,6 +75,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:text="0원"
+        android:fontFamily="@font/ttadak"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
@@ -96,6 +99,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="결제방법"
+            android:fontFamily="@font/binggrae"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -111,7 +115,8 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/circle_button"
         android:backgroundTint="@color/colorAccent"
-        android:text="현금결제"
+        android:text="직접결제"
+        android:fontFamily="@font/ttadak"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
@@ -125,6 +130,7 @@
         android:background="@drawable/circle_button"
         android:backgroundTint="@color/colorAccent"
         android:text="계좌이체"
+        android:fontFamily="@font/ttadak"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
@@ -157,6 +163,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:text="픽업정보"
+            android:fontFamily="@font/binggrae"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/constraintLayout4"
@@ -172,6 +179,7 @@
         android:text="푸드트럭 위치주소"
         android:textAlignment="center"
         android:textSize="18sp"
+        android:fontFamily="@font/ttadak"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
@@ -184,6 +192,7 @@
         android:text="고객번호 / 아이디 등등"
         android:textAlignment="center"
         android:textSize="18sp"
+        android:fontFamily="@font/ttadak"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -203,7 +212,7 @@
         android:layout_width="101dp"
         android:layout_height="49dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/pay" />

@@ -71,6 +71,17 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@mipmap/ic_launcher_carticon_round" />
+
+            <ImageButton
+                android:id="@+id/mypagebt"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/circle_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_launcher_setting_round" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -95,6 +95,13 @@ class ShopInfoActivity :AppCompatActivity() {
             }
         }
 
+        mypagebt.setOnClickListener{
+            var mypageintent = Intent(this,MypageActivity::class.java)
+            mypageintent.putExtra("Shopkey", shopKey)
+            mypageintent.putExtra("ShopName",shopName)
+            startActivity(mypageintent)
+        }
+
 
     }
     override fun onStart() {//oncreate 다음에 호출  액티비티가 사용자에게 보여지기 직전에 호출됨
