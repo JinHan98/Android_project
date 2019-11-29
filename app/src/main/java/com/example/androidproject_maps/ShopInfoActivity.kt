@@ -12,9 +12,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.Exclude
-import com.google.firebase.database.IgnoreExtraProperties
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_shop_info.*
 
@@ -27,9 +25,18 @@ class ShopInfoActivity :AppCompatActivity() {
     private lateinit var mDatabaseReference: DatabaseReference
     private var loginStatus : Boolean = false
     private lateinit var uid : String
+    var reviewList : ArrayList<Review> = arrayListOf()
+    var reviewAdapter = ReviewAdapter(this,reviewList)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop_info)
+
+        val shopKey = intent.extras.getString("ShopKey")
+        val shopName = intent.extras.getString("ShopName")
+        val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
+        val shopRating = intent.extras.getFloat("ShopRating")
+        ratingBar2.rating = shopRating
+        mFirebaseauth = FirebaseAuth.getInstance()
 
         menubt.setOnClickListener{
             mainListView.visibility = View.VISIBLE
@@ -43,30 +50,41 @@ class ShopInfoActivity :AppCompatActivity() {
             Linear_review.visibility = View.INVISIBLE
         }
 
-        reviewbt.setOnClickListener{
+        reviewbt.setOnClickListener {
             mainListView.visibility = View.INVISIBLE
             Linear_detail.visibility = View.INVISIBLE
             Linear_review.visibility = View.VISIBLE
+            Review_ListView.adapter = reviewAdapter
+            var db = FirebaseDatabase.getInstance().getReference("shops/" + shopKey + "/reviews/")
+            db.orderByChild("time")
+            val valeventlistener = object : ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    reviewList.clear()
+                    for (snapshot: DataSnapshot in p0.children) {
+                        val review = snapshot.getValue(Review::class.java)
+                        if (review != null) {
+                            reviewList.add(review)
+                        }
+                    }
+                    reviewAdapter.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+            }
+            db.addValueEventListener(valeventlistener)
         }
-
-
-        val shopName = intent.extras.getString("ShopName")
-        val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
-        val shopKey = intent.extras.getString("ShopKey")
-        val shopRating = intent.extras.getFloat("ShopRating")
-        ratingBar2.rating = shopRating
-        mFirebaseauth = FirebaseAuth.getInstance()
         initFBAuthState()
+
         var adapter = MainListAdapter(this,menuArr,shopKey)
         var list : ListView = findViewById(R.id.mainListView)
-
         list.setAdapter(adapter)
         shop_name.text = shopName
         /* Reference to an image file in Cloud Storage*/
         val storage = FirebaseStorage.getInstance().reference
         var storageShopImgRef = storage.child("images").child(shopKey).child("ShopImg").child("foodtruck.png")
-        /*메모리에 다운로드 앱이 꺼지면 날라감*/
-
+        /*메모리에 다운로드, 앱이 꺼지면 날라감*/
         var ONE_MEGABYTE : Long = 1024*1024
         storageShopImgRef?.getBytes(ONE_MEGABYTE).addOnCompleteListener{
             if(it.isSuccessful) {
@@ -85,7 +103,7 @@ class ShopInfoActivity :AppCompatActivity() {
                 startActivity(orderintent)
             } else {
                 //로그인 안되어있으면 로그인창으로 넘기기
-                Toast.makeText(this,"로그인이 되어있지 않습니다. 로그인창으로 넘어갑니다.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ShopInfoActivity,"로그인이 되어있지 않습니다. 로그인창으로 넘어갑니다.",Toast.LENGTH_SHORT).show()
                 Handler().postDelayed({},4000)
                 var loginintent = Intent(this@ShopInfoActivity, LoginActivity::class.java)
                 loginintent.putExtra("MenuArr", menuArr)
@@ -96,11 +114,12 @@ class ShopInfoActivity :AppCompatActivity() {
         }
 
         mypagebt.setOnClickListener{
-            var mypageintent = Intent(this,MypageActivity::class.java)
+            var mypageintent = Intent(this@ShopInfoActivity,MypageActivity::class.java)
             mypageintent.putExtra("Shopkey", shopKey)
             mypageintent.putExtra("ShopName",shopName)
             startActivity(mypageintent)
         }
+
 
 
     }
@@ -129,9 +148,8 @@ class ShopInfoActivity :AppCompatActivity() {
             }
         }
     }
+
 }
-
-
 @IgnoreExtraProperties
 data class Shop (
     var shop_name: String? = "",
@@ -218,7 +236,8 @@ data class Review (
     var client_rating_url : String = "",
     var photourl : String = "",
     var review_text : String = "",
-
+    var shopKey : String = "",
+    var time : String = "",
     var stars: MutableMap<String, Boolean> = HashMap()
 ) {
 
@@ -230,11 +249,13 @@ data class Review (
             "rating" to rating,
             "client_rating_url" to client_rating_url,
             "photourl" to photourl,
-            "review_text" to review_text
+            "review_text" to review_text,
+            "shopKey" to shopKey,
+            "time" to time
         )
     }
 }
-private fun writeNewReview(client_name : String , client_uid : String,rating : Float,client_rating_url: String,photourl: String,review_text: String) {
+private fun writeNewReview(client_name : String , client_uid : String,rating : Float,client_rating_url: String,photourl: String,review_text: String,shopKey : String,time : String) {
     // Create new post at /user-posts/$userid/$postid and at
     // /posts/$postid simultaneously
     val key = database.child("reviews").push().key
@@ -243,7 +264,7 @@ private fun writeNewReview(client_name : String , client_uid : String,rating : F
         return
     }
 
-    val Review = Review(client_name, client_uid, rating ,client_rating_url,photourl,review_text)
+    val Review = Review(client_name, client_uid, rating ,client_rating_url,photourl,review_text,shopKey,time)
     val reviewValues = Review.toMap()
 
     val childUpdates = HashMap<String, Any>()

@@ -54,7 +54,7 @@ class Order : AppCompatActivity() {
                 //주문 시간 구하기
                 var now = System.currentTimeMillis()
                 var timenow = Time(now)
-                var ordertimeDataFomat = SimpleDateFormat("hh:mm:ss a");
+                var ordertimeDataFomat = SimpleDateFormat("hh:mm:ss a")
                 var orderTime = ordertimeDataFomat.format(timenow)
                 //db에 주문내역 올리기
                 writeNewOrderInfo(pay.toString(), "0", customer_request_View.text.toString(), orderTime)
