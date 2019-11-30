@@ -269,26 +269,25 @@
 
                 </LinearLayout>
             </ScrollView>
+            <LinearLayout
+                android:id="@+id/Linear_review"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="invisible">
 
+
+                <ListView
+                    android:id="@+id/Review_ListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                </ListView>
+
+            </LinearLayout>
         </FrameLayout>
 
-        <LinearLayout
-            android:id="@+id/Linear_review"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="invisible">
-
-
-            <ListView
-                android:id="@+id/Review_ListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-            </ListView>
-
-        </LinearLayout>
 
     </LinearLayout>
 

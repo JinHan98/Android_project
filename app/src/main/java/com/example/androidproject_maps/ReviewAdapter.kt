@@ -17,12 +17,13 @@ class ReviewAdapter (val context: Context, val ReviewList: ArrayList<Review>): B
         val name = view.findViewById<TextView>(R.id.review_name)
         val rating = view.findViewById<RatingBar>(R.id.ratingBar)
         val review_text = view.findViewById<TextView>(R.id.review_text)
-        name.text = ReviewList.get(position).client_name
-        rating.rating = ReviewList.get(position).rating
-        review_text.text = ReviewList.get(position).review_text
+        val reverse_idx = ReviewList.size -1 - position//가장 최근것이 맨위로 올라가기 위해서
+        name.text = ReviewList.get(reverse_idx).client_name
+        rating.rating = ReviewList.get(reverse_idx).rating
+        review_text.text = ReviewList.get(reverse_idx).review_text
 
         var client_level_photo = view.findViewById<ImageView>(R.id.client_level)
-        var storageShopImgRef = FirebaseStorage.getInstance().getReference(ReviewList.get(position).client_rating_url)
+        var storageShopImgRef = FirebaseStorage.getInstance().getReference(ReviewList.get(reverse_idx).client_rating_url)
         /*메모리에 다운로드 앱이 꺼지면 날라감*/
         var ONE_MEGABYTE : Long = 1024*1024
         storageShopImgRef.getBytes(ONE_MEGABYTE).addOnCompleteListener{
@@ -31,7 +32,7 @@ class ReviewAdapter (val context: Context, val ReviewList: ArrayList<Review>): B
             client_level_photo.setImageBitmap(BitmapFactory.decodeByteArray(it.result!!,0,it.result!!.size))
         }
         var review_photo = view.findViewById<ImageView>(R.id.review_image)
-        var storageShopImgRef2 = FirebaseStorage.getInstance().getReference(ReviewList.get(position).photourl)
+        var storageShopImgRef2 = FirebaseStorage.getInstance().getReference(ReviewList.get(reverse_idx).photourl)
         /*메모리에 다운로드 앱이 꺼지면 날라감*/
         storageShopImgRef2.getBytes(ONE_MEGABYTE).addOnCompleteListener{
             if(it.isSuccessful) {
@@ -46,7 +47,7 @@ class ReviewAdapter (val context: Context, val ReviewList: ArrayList<Review>): B
     }
 
     override fun getItem(position: Int): Any {
-        return ReviewList[position]
+        return ReviewList[ReviewList.size-1-position]
     }
 
     override fun getItemId(position: Int): Long {

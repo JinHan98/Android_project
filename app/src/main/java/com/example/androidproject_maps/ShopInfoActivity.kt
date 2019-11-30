@@ -55,8 +55,7 @@ class ShopInfoActivity :AppCompatActivity() {
             Linear_detail.visibility = View.INVISIBLE
             Linear_review.visibility = View.VISIBLE
             Review_ListView.adapter = reviewAdapter
-            var db = FirebaseDatabase.getInstance().getReference("shops/" + shopKey + "/reviews/")
-            db.orderByChild("time")
+            var db = FirebaseDatabase.getInstance().getReference("shops/" + shopKey + "/reviews")
             val valeventlistener = object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     reviewList.clear()
@@ -73,7 +72,7 @@ class ShopInfoActivity :AppCompatActivity() {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
             }
-            db.addValueEventListener(valeventlistener)
+            db.orderByKey().limitToLast(20).addValueEventListener(valeventlistener)//reviews의 key값으로 정렬한후 가장큰(가장 최근)20개만 가져와라.
         }
         initFBAuthState()
 
