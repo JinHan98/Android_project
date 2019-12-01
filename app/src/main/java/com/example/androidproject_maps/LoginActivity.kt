@@ -102,11 +102,10 @@ class LoginActivity : AppCompatActivity() {
                     mDatabaseReference.child(user!!.uid).child("phonenum").setValue("null")
                     Toast.makeText(this@LoginActivity,"로그인 완료!", Toast.LENGTH_SHORT).show()
                     Handler().postDelayed({},4000)
-                    //주문창으로 넘기기
-                    var orderintent = Intent(this@LoginActivity, Order::class.java)
+                    //샵 인포로 넘기기
+                    var orderintent = Intent(this@LoginActivity, ShopInfoActivity::class.java)
                     orderintent.putExtra("MenuArr", menuArr)
                     orderintent.putExtra("ShopKey", shopKey)
-                    orderintent.putExtra("uid",user!!.uid)
                     orderintent.putExtra("ShopName",shopName)
                     startActivity(orderintent)
                 } else {

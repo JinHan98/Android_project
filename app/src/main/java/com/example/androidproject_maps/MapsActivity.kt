@@ -32,7 +32,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private lateinit var fusedLocationclient:FusedLocationProviderClient
     var mCurrentLocation = Location("Current Location")
     val DISTANCE = 1000.00//1km  이내에 상점들 리스트뷰에 띄울것
-
+    //var mMarkerList = arrayListOf<Marker>()//상점 리스트뷰 클릭했을 떄 맵의 마커에서도 클릭되도록 하기 위해 만든 것
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE =1
     }
@@ -136,8 +136,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                         mOption.title(shopName)
                         shopinfoArr.add(shopinfo)
                         map.addMarker(mOption)
-
+                        //mMarkerList.add(marker)
                         map.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+
                             override fun onMarkerClick(p0: Marker?): Boolean {
                                 for (shop in shopinfoArr) {
                                     if (p0!!.title.equals(shop.name)) {
@@ -182,6 +183,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 shopviewlist.setOnItemClickListener { parent, view, position, id ->
                     var latLng =LatLng(shoplist_listview[position].latitude,shoplist_listview[position].longitude)
                     map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+                    /*
+                    for(marker in mMarkerList){//상점 리스트 뷰에서 클릭된 상점이 구글 맵 마커에서도 클릭되도록 하기
+                        if(shoplist_listview[position].name.equals(marker.title)){
+                            onMarkerClick(marker)
+
+                        }
+                    }*///실패했음
                     var targetShop : String
                     for (shop in shopinfoArr) {
                         if (shoplist_listview[position].name.equals(shop.name)) {

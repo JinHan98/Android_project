@@ -113,10 +113,22 @@ class ShopInfoActivity :AppCompatActivity() {
         }
 
         mypagebt.setOnClickListener{
-            var mypageintent = Intent(this@ShopInfoActivity,MypageActivity::class.java)
-            mypageintent.putExtra("Shopkey", shopKey)
-            mypageintent.putExtra("ShopName",shopName)
-            startActivity(mypageintent)
+            if(loginStatus) {
+                var mypageintent = Intent(this@ShopInfoActivity, MypageActivity::class.java)
+                mypageintent.putExtra("Shopkey", shopKey)
+                mypageintent.putExtra("ShopName", shopName)
+                startActivity(mypageintent)
+            }
+            else{
+                //로그인 안되어있으면 로그인창으로 넘기기
+                Toast.makeText(this@ShopInfoActivity,"로그인이 되어있지 않습니다. 로그인창으로 넘어갑니다.",Toast.LENGTH_SHORT).show()
+                Handler().postDelayed({},4000)
+                var loginintent = Intent(this@ShopInfoActivity, LoginActivity::class.java)
+                loginintent.putExtra("MenuArr", menuArr)
+                loginintent.putExtra("ShopKey", shopKey)
+                loginintent.putExtra("ShopName",shopName)
+                startActivity(loginintent)
+            }
         }
 
 
