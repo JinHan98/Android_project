@@ -32,7 +32,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private lateinit var fusedLocationclient:FusedLocationProviderClient
     var mCurrentLocation = Location("Current Location")
     val DISTANCE = 1000.00//1km  이내에 상점들 리스트뷰에 띄울것
-    //var mMarkerList = arrayListOf<Marker>()//상점 리스트뷰 클릭했을 떄 맵의 마커에서도 클릭되도록 하기 위해 만든 것
+    var mMarkerList = arrayListOf<Marker>()//상점 리스트뷰 클릭했을 떄 맵의 마커에서도 클릭되도록 하기 위해 만든 것
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE =1
     }
@@ -69,16 +69,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
 
         //Database
-        var latitude : Double =0.0
-        var longitude : Double =0.0
+        var latitude : Double
+        var longitude : Double
         var shopKey : String?
         var shopName : String
         var food_name : String
         var price : String
         var shopinfoArr : ArrayList<Shopinfo> = arrayListOf()
-        var targetNum  = 0
         database = FirebaseDatabase.getInstance().getReference("shops/")
-        
+        var targetNum  = 0
         val valeventlistener = object : ValueEventListener {
             //구글 맵 밑에 리스트 뷰
             var shoplist_listview = arrayListOf<Shopinfo>()
@@ -88,7 +87,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 for(snapshot : DataSnapshot in p0.children) {
                     val value: Shop? = snapshot.getValue(Shop::class.java)
                     if (value != null) {
-                        shopName = value?.shop_name.toString()
+                        shopName = value.shop_name.toString()
                         shopKey = snapshot.key //key값 받아내기  중요
 
 
@@ -135,16 +134,33 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                         val mOption = MarkerOptions().position(LatLng(latitude, longitude))
                         mOption.title(shopName)
                         shopinfoArr.add(shopinfo)
-                        map.addMarker(mOption)
-                        //mMarkerList.add(marker)
+                        var marker = map.addMarker(mOption)
+                        mMarkerList.add(marker)
+
                         map.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
 
                             override fun onMarkerClick(p0: Marker?): Boolean {
+
                                 for (shop in shopinfoArr) {
                                     if (p0!!.title.equals(shop.name)) {
                                         targetNum = shopinfoArr.indexOf(shop)
                                     }
                                 }
+                                var targetShop : String
+                                for (shop in shoplist_listview) {
+                                    if (shop.name.equals(p0!!.title)) {
+                                        targetNum = shopinfoArr.indexOf(shop)
+                                        targetShop = shop.name
+                                        for ( i in 0 .. shopviewlist.size-1) {
+                                            if (shopviewlist[i].foodNameTv.text.equals(targetShop)) {
+                                                shopviewlist[i].setBackgroundColor(Color.rgb(194, 194, 194))
+                                            } else {
+                                                shopviewlist[i].setBackgroundColor(Color.WHITE)
+                                            }
+                                        }
+                                    }
+                                }
+
                                 ShopButton.setOnClickListener {
 
                                     val intent =
@@ -171,6 +187,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                                 if (ShopButton.visibility == VISIBLE) {
                                     ShopButton.visibility = GONE
                                 }
+                                for ( i in 0 .. shopviewlist.size-1) {
+                                    shopviewlist[i].setBackgroundColor(Color.WHITE)
+                                }
                             }
                         })
                     }
@@ -183,13 +202,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 shopviewlist.setOnItemClickListener { parent, view, position, id ->
                     var latLng =LatLng(shoplist_listview[position].latitude,shoplist_listview[position].longitude)
                     map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-                    /*
+
                     for(marker in mMarkerList){//상점 리스트 뷰에서 클릭된 상점이 구글 맵 마커에서도 클릭되도록 하기
                         if(shoplist_listview[position].name.equals(marker.title)){
-                            onMarkerClick(marker)
-
+                            marker.showInfoWindow() // Can you please add this function?
                         }
-                    }*///실패했음
+                    }
+
                     var targetShop : String
                     for (shop in shopinfoArr) {
                         if (shoplist_listview[position].name.equals(shop.name)) {
