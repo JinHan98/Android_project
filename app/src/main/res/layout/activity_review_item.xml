@@ -31,16 +31,16 @@
 
     <RatingBar
         android:id="@+id/ratingBar"
-        style="@android:style/Widget.Holo.Light.RatingBar.Small"
+        style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="79dp"
         android:layout_height="18dp"
-        android:layout_marginStart="22dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="222dp"
         android:numStars="5"
         android:rating="5"
         android:stepSize="0.5"
         app:layout_constraintBottom_toTopOf="@+id/review_image"
-        app:layout_constraintStart_toEndOf="@+id/review_name"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -62,6 +62,7 @@
         android:fontFamily="@font/ttadak"
         android:text="다음에 또 이용하고싶어요 너무 맛있어요~"
         android:textSize="20dp"
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

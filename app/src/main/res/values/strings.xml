@@ -2,4 +2,7 @@
     <string name="app_name">Androidproject_maps</string>
     <string name="title_activity_maps">Map</string>
     <string name="order_here">Order Here</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

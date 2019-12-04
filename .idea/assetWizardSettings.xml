@@ -63,7 +63,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="scalingPercent" value="108" />
+                                                <entry key="scalingPercent" value="91" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -76,8 +76,8 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="foregroundImage" value="C:\eatswherefix2\Android_project\app\src\main\res\drawable\vip.PNG" />
-                                      <entry key="outputName" value="ic_launcher_rating_vip" />
+                                      <entry key="foregroundImage" value="C:\eatswherefix2\Android_project\app\src\main\res\drawable\gold.PNG" />
+                                      <entry key="outputName" value="ic_launcher_rating_gold" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_fticon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyinfoActivity"></activity>
+        <activity android:name=".OrderFinishActivity"></activity>
+        <activity android:name=".MyinfoActivity" />
         <activity android:name=".ReviewActivity" />
         <activity android:name=".LogindetailActivity" />
         <activity android:name=".MypageActivity" />

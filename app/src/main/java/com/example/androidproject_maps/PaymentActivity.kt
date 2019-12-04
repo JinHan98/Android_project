@@ -1,5 +1,6 @@
 package com.example.androidproject_maps
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
@@ -18,9 +19,12 @@ class PaymentActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().getReference("Customers/"+uid+"/phoneNum")
         payText.text = pay.toString() + " 원"
         accountbt.setOnClickListener{
+            val finishintent = Intent(this, OrderFinishActivity::class.java)
+            startActivity(finishintent)
         }
         paybt.setOnClickListener{
-
+            val finishintent = Intent(this, OrderFinishActivity::class.java)
+            startActivity(finishintent)
         }
     }
 

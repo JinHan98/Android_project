@@ -132,7 +132,7 @@
                         android:layout_height="49dp"
                         android:fontFamily="@font/ttadak"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="리뷰관리"
+                        android:text="주문내역 / 리뷰관리"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
