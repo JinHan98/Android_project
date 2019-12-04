@@ -15,12 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_fticon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MypageActivity"></activity>
+        <activity android:name=".LogindetailActivity"></activity>
+        <activity android:name=".MypageActivity" />
         <activity android:name=".Review_item_Activity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".PaymentActivity" />
         <activity android:name=".ShopDetailActivity" />
-
 
         <uses-library
             android:name="org.apache.http.legacy"
