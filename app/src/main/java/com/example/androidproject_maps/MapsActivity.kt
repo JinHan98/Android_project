@@ -3,10 +3,13 @@ package com.example.androidproject_maps
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.get
@@ -67,7 +70,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         fusedLocationclient = LocationServices.getFusedLocationProviderClient(this)
 
 
-
+        val txt:TextView=findViewById(R.id.textView33)
         //Database
         var latitude : Double
         var longitude : Double
@@ -78,6 +81,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         var shopinfoArr : ArrayList<Shopinfo> = arrayListOf()
         database = FirebaseDatabase.getInstance().getReference("shops/")
         var targetNum  = 0
+        val geocoder =Geocoder(this)
+        var addresslist : MutableList<Address>?
         val valeventlistener = object : ValueEventListener {
             //구글 맵 밑에 리스트 뷰
             var shoplist_listview = arrayListOf<Shopinfo>()
@@ -105,6 +110,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                         longitude = value.longitude!!.toDouble()
                         shopLocation.longitude = longitude
                         shopinfo.longitude=longitude
+
+                        addresslist=geocoder.getFromLocation(latitude,longitude,1)
+                        txt.text= (addresslist as MutableList<Address>?)!![0]?.getAddressLine(0)//좌표를 주소로 받은코드
 
                         var distance = mCurrentLocation.distanceTo(shopLocation)
                         if (distance < DISTANCE) {//현재 위치와 1km 이내에 있는 shop이라면

@@ -13,23 +13,31 @@
         android:layout_height="420dp"
         tools:context=".MapsActivity" />
 
-    <Button
-        android:id="@+id/ShopButton"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="주문하러가기"
-        android:fontFamily="@font/binggrae"
-        android:textSize="24sp"
-        android:visibility="gone" />
-
     <ListView
         android:id="@+id/shopviewlist"
         android:layout_width="match_parent"
-        android:layout_height="257dp"
+        android:layout_height="269dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="0dp" >
+    </ListView>
+    <Button
+        android:id="@+id/ShopButton"
+        android:layout_width="600dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="615dp"
+        android:backgroundTint="@color/colorAccent"
+        android:fontFamily="@font/binggrae"
+        android:text="주문하러가기"
+        android:textSize="24sp"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_below="@+id/map"
+        android:layout_marginTop="-49dp"
+        android:gravity="center"
+        android:text="근방 1km이내 매장"
+        android:textColor="@color/cardview_dark_background" />
 
 </RelativeLayout>
