@@ -22,7 +22,6 @@ class ShopInfoActivity :AppCompatActivity() {
 
     private lateinit var mFirebaseauth: FirebaseAuth
     private lateinit var mAuthStateListener : FirebaseAuth.AuthStateListener
-    private lateinit var mDatabaseReference: DatabaseReference
     private var loginStatus : Boolean = false
     private lateinit var uid : String
     var reviewList : ArrayList<Review> = arrayListOf()
@@ -35,7 +34,12 @@ class ShopInfoActivity :AppCompatActivity() {
         val shopName = intent.extras.getString("ShopName")
         val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
         val shopRating = intent.extras.getFloat("ShopRating")
+        val bank = intent.extras.getString("Bank")
+        val bankID = intent.extras.getString("BankID")
+        val address = intent.extras.getString("Address")
+        val accountHolder = intent.extras.getString("AccountHolder")
         ratingBar2.rating = shopRating
+
         mFirebaseauth = FirebaseAuth.getInstance()
 
         menubt.setOnClickListener{
@@ -99,6 +103,12 @@ class ShopInfoActivity :AppCompatActivity() {
                 orderintent.putExtra("ShopKey", shopKey)
                 orderintent.putExtra("ShopName",shopName)
                 orderintent.putExtra("uid", uid)
+                orderintent.putExtra("ShopRating",shopRating)
+                orderintent.putExtra("Address",address)
+                orderintent.putExtra("Bank",bank)
+                orderintent.putExtra("BankID",bankID)
+                orderintent.putExtra("AccountHolder",accountHolder)
+                finish()
                 startActivity(orderintent)
             } else {
                 //로그인 안되어있으면 로그인창으로 넘기기
@@ -108,6 +118,11 @@ class ShopInfoActivity :AppCompatActivity() {
                 loginintent.putExtra("MenuArr", menuArr)
                 loginintent.putExtra("ShopKey", shopKey)
                 loginintent.putExtra("ShopName",shopName)
+                loginintent.putExtra("ShopRating",shopRating)
+                loginintent.putExtra("Address",address)
+                loginintent.putExtra("Bank",bank)
+                loginintent.putExtra("BankID",bankID)
+                loginintent.putExtra("AccountHolder",accountHolder)
                 startActivity(loginintent)
             }
         }
@@ -160,14 +175,21 @@ class ShopInfoActivity :AppCompatActivity() {
         }
     }
 
+
+
 }
 @IgnoreExtraProperties
 data class Shop (
-    var shop_name: String? = "",
-    var latitude: String? = "",//위도
-    var longitude: String? = "",//경도
-    var rating: Float? = 0.toFloat() ,
+    var accountHolder : String = "",
+    var address : String = "",
+    var bank : String = "",
+    var bankID : String = "",
+    var shop_name: String = "",
+    var latitude: String = "",//위도
+    var longitude: String = "",//경도
+    var rating: Float = 0.toFloat() ,
     var photourl : String = "",
+    var ownerUid : String = "",
     var stars: MutableMap<String, Boolean> = HashMap()
 ) {
 
@@ -179,11 +201,12 @@ data class Shop (
             "longitude" to longitude,
             "photourl" to photourl,
             "rating" to rating,
+            "ownerUid" to ownerUid,
             "stars" to stars
         )
     }
 }
-private fun writeNewshop(shop_name: String, latitude: String, longitude: String, rating: Float, photourl: String) {
+private fun writeNewshop(accountHolder: String,address: String,bank: String,bankID: String,shop_name: String, latitude: String, longitude: String, rating: Float, photourl: String,ownerUid: String) {
     // Create new post at /user-posts/$userid/$postid and at
     // /posts/$postid simultaneously
     val key = database.child("shops").push().key
@@ -192,7 +215,7 @@ private fun writeNewshop(shop_name: String, latitude: String, longitude: String,
         return
     }
 
-    val shop = Shop(shop_name, latitude, longitude,rating,photourl)
+    val shop = Shop(accountHolder, address, bank, bankID,shop_name, latitude, longitude,rating,photourl,ownerUid)
     val shopValues = shop.toMap()
 
     val childUpdates = HashMap<String, Any>()

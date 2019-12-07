@@ -27,6 +27,11 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var menuArr : ArrayList<MenuFood>
     private lateinit var shopKey : String
     private lateinit var shopName : String
+    private lateinit var shopRating : String
+    private lateinit var bank : String
+    private lateinit var bankID : String
+    private lateinit var address : String
+    private lateinit var accountHolder : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -34,6 +39,11 @@ class LoginActivity : AppCompatActivity() {
         menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
         shopKey = intent.extras.getString("ShopKey")
         shopName = intent.extras.getString("ShopName")
+        shopRating = intent.extras.getFloat("ShopRating").toString()
+        bank = intent.extras.getString("Bank")
+        bankID = intent.extras.getString("BankID")
+        address = intent.extras.getString("Address")
+        accountHolder = intent.extras.getString("AccountHolder")
         initFBAuthState()
 
 
@@ -107,6 +117,12 @@ class LoginActivity : AppCompatActivity() {
                     orderintent.putExtra("MenuArr", menuArr)
                     orderintent.putExtra("ShopKey", shopKey)
                     orderintent.putExtra("ShopName",shopName)
+                    orderintent.putExtra("ShopRating",shopRating.toFloat())
+                    orderintent.putExtra("Address", address)
+                    orderintent.putExtra("AccountHolder", accountHolder)
+                    orderintent.putExtra("Bank", bank)
+                    orderintent.putExtra("BankID", bankID)
+                    finish()
                     startActivity(orderintent)
                 } else {
 

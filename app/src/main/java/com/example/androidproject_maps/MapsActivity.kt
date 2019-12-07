@@ -101,11 +101,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                         shopinfo.shopKey = shopKey.toString()
                         shopinfo.photoUrl = value.photourl
                         shopinfo.shopRate = value.rating!!
+                        shopinfo.address = value.address
+                        shopinfo.bank = value.bank
+                        shopinfo.accountHolder = value.accountHolder
+                        shopinfo.bankID = value.bankID
 
                         latitude = value.latitude!!.toDouble()
                         shopLocation.latitude = latitude
                         shopinfo.latitude=latitude
-
 
                         longitude = value.longitude!!.toDouble()
                         shopLocation.longitude = longitude
@@ -173,6 +176,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
                                     val intent =
                                         Intent(applicationContext, ShopInfoActivity::class.java)
+                                    intent.putExtra("Address",shopinfoArr.get(targetNum).address)
+                                    intent.putExtra("Bank",shopinfoArr.get(targetNum).bank)
+                                    intent.putExtra("BankID",shopinfoArr.get(targetNum).bankID)
+                                    intent.putExtra("AccountHolder",shopinfoArr.get(targetNum).accountHolder)
                                     intent.putExtra("ShopKey", shopinfoArr.get(targetNum).shopKey)
                                     intent.putExtra("ShopName", shopinfoArr.get(targetNum).name)
                                     intent.putExtra("MenuArr", shopinfoArr.get(targetNum).menuArr)
@@ -213,7 +220,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
                     for(marker in mMarkerList){//상점 리스트 뷰에서 클릭된 상점이 구글 맵 마커에서도 클릭되도록 하기
                         if(shoplist_listview[position].name.equals(marker.title)){
-                            marker.showInfoWindow() // Can you please add this function?
+                            marker.showInfoWindow()
                         }
                     }
 
@@ -236,6 +243,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
                         val intent =
                             Intent(applicationContext, ShopInfoActivity::class.java)
+                        intent.putExtra("Address",shopinfoArr.get(targetNum).address)
+                        intent.putExtra("Bank",shopinfoArr.get(targetNum).bank)
+                        intent.putExtra("BankID",shopinfoArr.get(targetNum).bankID)
+                        intent.putExtra("AccountHolder",shopinfoArr.get(targetNum).accountHolder)
                         intent.putExtra("ShopKey", shopinfoArr.get(targetNum).shopKey)
                         intent.putExtra("ShopName", shopinfoArr.get(targetNum).name)
                         intent.putExtra("MenuArr", shopinfoArr.get(targetNum).menuArr)

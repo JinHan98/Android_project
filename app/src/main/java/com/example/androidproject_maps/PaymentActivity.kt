@@ -1,31 +1,218 @@
 package com.example.androidproject_maps
 
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.Exclude
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.android.synthetic.main.activity_payment.*
+import java.sql.Time
+import java.text.SimpleDateFormat
 
+private lateinit var database: DatabaseReference
+private lateinit var order_key : String
 class PaymentActivity : AppCompatActivity() {
-    private lateinit var database: DatabaseReference
+    private lateinit var  order_way : String
+    private lateinit var  pay : String
+    private lateinit var  shopKey: String
+    private lateinit var uid : String
+    private lateinit var orderMenuList : ArrayList<MenuFood>
+    private lateinit var customerRequest: String
+    private lateinit var orderTime : String
+    private lateinit var backDialog : AlertDialog
+    private lateinit var shopName : String
+    private lateinit var menuArr : ArrayList<MenuFood>
+    private lateinit var shopRating : String
+    private lateinit var bank : String
+    private lateinit var bankID : String
+    private lateinit var address : String
+    private lateinit var accountHolder : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
-        val pay = intent.extras.getInt("Pay")
-        val shopKey = intent.extras.getString("ShopKey")
-        val orderKey = intent.extras.getString("OrderKey")
-        val uid = intent.extras.getString("Uid")
-        database = FirebaseDatabase.getInstance().getReference("Customers/"+uid+"/phoneNum")
+        pay = intent.extras.getInt("Pay").toString()
+        shopKey = intent.extras.getString("ShopKey")
+        uid = intent.extras.getString("Uid")
+        orderMenuList = intent.getSerializableExtra("OrderMenuList") as ArrayList<MenuFood>
+        customerRequest = intent.extras.getString("CustomerRequest")
+        shopName = intent.extras.getString("ShopName")
+        menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>//백버튼 눌렀을떄 shopinfoActivity로 돌아가기위해
+        shopRating = intent.extras.getFloat("ShopRating").toString()
+        bank = intent.extras.getString("Bank")
+        bankID = intent.extras.getString("BankID")
+        address = intent.extras.getString("Address")
+        accountHolder = intent.extras.getString("AccountHolder")
+        //주문 시간 구하기
+        var now = System.currentTimeMillis()
+        var timenow = Time(now)
+        var ordertimeDataFomat = SimpleDateFormat("hh:mm:ss a")
+        orderTime = ordertimeDataFomat.format(timenow)
+
+
+
         payText.text = pay.toString() + " 원"
         accountbt.setOnClickListener{
-            val finishintent = Intent(this, OrderFinishActivity::class.java)
-            startActivity(finishintent)
+            order_way = "계좌이체"
+            payDialogShow()
         }
         paybt.setOnClickListener{
-            val finishintent = Intent(this, OrderFinishActivity::class.java)
-            startActivity(finishintent)
+            order_way = "직접결제"
+            payDialogShow()
         }
     }
+    private fun payDialogShow(){
+        var builder = AlertDialog.Builder(this@PaymentActivity)
+        builder.setTitle("주문 확인")
+        builder.setMessage(order_way+"로 "+pay+"원을 결제하시겠습니까?")
+        builder.setPositiveButton(
+            "예"
+        ) { dialog, which ->
+            database = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/")
+            writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid)
+            database = FirebaseDatabase.getInstance().getReference("/Customers/"+uid+"/")//손님 DB에도 올려야함
+            writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid)
+            for(orderMenu in orderMenuList){
+                database = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/")
+                writeNewOrderMenu(orderMenu.name,orderMenu.amounts, order_key)
+                database = FirebaseDatabase.getInstance().getReference("/Customers/"+uid+"/")//손님 DB에도 올려야함
+                writeNewOrderMenu(orderMenu.name,orderMenu.amounts, order_key)
+            }
+            val finishintent = Intent(this, OrderFinishActivity::class.java)
+            finishintent.putExtra("Bank",bank)
+            finishintent.putExtra("BankID",bankID)
+            finishintent.putExtra("AccountHolder",accountHolder)
+            finishintent.putExtra("Pay",pay)
+            finishintent.putExtra("ShopKey",shopKey)
+            finishintent.putExtra("ShopName",shopName)
+            finishintent.putExtra("MenuArr",menuArr)
+            finishintent.putExtra("ShopRating",shopRating)
+            finishintent.putExtra("Address",address)
+            finish()
+            startActivity(finishintent)
+        }
+        builder.setNegativeButton(
+            "아니오"
+        ){ dialog, which ->
 
+        }
+        builder.show()
+    }
+
+    override fun onBackPressed() {
+        var backDialogBuilder = AlertDialog.Builder(this@PaymentActivity)
+        backDialog = backDialogBuilder.create()
+        backDialogBuilder.setTitle("주문 취소")
+        backDialogBuilder.setMessage("주문을 취소하시겠습니까??")
+        backDialogBuilder.setPositiveButton(
+            "예"
+        ) { dialog, which ->
+            onPause()
+            backDialog.dismiss()
+            finish()
+            var intent = Intent(this@PaymentActivity, ShopInfoActivity::class.java)
+            intent.putExtra("ShopKey",shopKey)
+            intent.putExtra("ShopName",shopName)
+            intent.putExtra("MenuArr",menuArr)
+            intent.putExtra("ShopRating",shopRating.toFloat())
+            intent.putExtra("Address",address)
+            intent.putExtra("Bank",bank)
+            intent.putExtra("BankID",bankID)
+            intent.putExtra("AccountHolder",accountHolder)
+            finish()
+            startActivity(intent)
+
+        }
+        backDialogBuilder.setNegativeButton(
+            "아니오"
+        ){ dialog, which ->
+            backDialog.cancel()
+        }
+        backDialogBuilder.show()
+    }
+
+
+}
+@IgnoreExtraProperties
+data class OrderInfo (
+    var pay : String = "",
+    var phoneNum : String = "",
+    var customerRequest : String = "",
+    var ordertime : String = "",
+    var status : Int = 0,//0 대기중(수락대기중) 1 처리중(요리중) 2 완료 (음식이 나감)
+    var customerUid : String,
+    var stars: MutableMap<String, Boolean> = HashMap()
+) {
+
+    @Exclude
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+            "pay" to pay ,
+            "phoneNum" to phoneNum,
+            "customerRequest" to customerRequest,
+            "ordertime" to ordertime,
+            "status" to status,
+            "customerUid" to customerUid,
+            "stars" to stars
+        )
+    }
+}
+private fun writeNewOrderInfo(pay: String,phoneNum: String,customerRequest: String,ordertime: String,customerUid: String) {
+    // Create new post at /user-posts/$userid/$postid and at
+    // /posts/$postid simultaneously
+    val key = database.child("orders").push().key
+    order_key = key.toString()
+    if (key == null) {
+        Log.w(ContentValues.TAG, "Couldn't get push key for orders")
+        return
+    }
+
+    val order = OrderInfo(pay, phoneNum, customerRequest,ordertime,0,customerUid)
+    val orderValues = order.toMap()
+    val childUpdates = HashMap<String, Any>()
+    childUpdates["/orders/$key"] = orderValues
+    database.updateChildren(childUpdates)
+
+
+}
+@IgnoreExtraProperties
+data class OrderMenu(
+    var food_name: String? = "",
+    var amounts: String? = "",
+    var starCount: Int = 0,
+    var stars: MutableMap<String, Boolean> = HashMap()
+) {
+
+    @Exclude
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+            "food_name" to food_name ,
+            "amounts" to amounts,
+            "starCount" to starCount,
+            "stars" to stars
+        )
+    }
+}
+private fun writeNewOrderMenu(food_name: String, amounts: String, orderKey : String) {
+    // Create new post at /user-posts/$userid/$postid and at
+    // /posts/$postid simultaneously
+    val key = database.child("orders/ordermenus").push().key
+
+    if (key == null) {
+        Log.w(ContentValues.TAG, "Couldn't get push key for ordermenus")
+        return
+    }
+
+    val orderMenu = OrderMenu(food_name,amounts)
+    val orderMenuValues = orderMenu.toMap()
+
+    val childUpdates = HashMap<String, Any>()
+    childUpdates["/orders/"+orderKey+"/ordermenus/$key"] = orderMenuValues
+
+
+    database.updateChildren(childUpdates)
 }

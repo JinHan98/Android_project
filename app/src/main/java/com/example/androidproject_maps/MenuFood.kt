@@ -6,6 +6,7 @@ class MenuFood( )  : Serializable{
     var name : String = ""
     var price : String = ""
     var photourl : String = ""
+    var amounts : String = ""
     constructor(name: String,price:String,photo:String):this(){
         this.name = name
         this.price = price

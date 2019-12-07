@@ -163,7 +163,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                 <TextView
-                    android:id="@+id/textView39"
+                    android:id="@+id/bankTextView"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -173,7 +173,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/textView42"
+                    android:id="@+id/accountHolderTextView"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -183,7 +183,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/textView40"
+                    android:id="@+id/bankIDTextView"
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:layout_weight="4"
@@ -227,7 +227,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/textView36"
+                    android:id="@+id/payTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="4"
