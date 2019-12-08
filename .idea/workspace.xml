@@ -85,57 +85,64 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/MapsActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="254" lean-forward="true" selection-start-line="254" selection-end-line="254" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/PaymentActivity.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-              <folding>
-                <element signature="e#41#567#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="165">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/ShopInfoActivity.kt">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/LogindetailActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-75">
-              <caret line="110" column="24" selection-start-line="110" selection-start-column="24" selection-end-line="110" selection-end-column="24" />
+            <state>
+              <caret line="22" column="42" lean-forward="true" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_logindetail.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="1695">
+              <caret line="176" column="23" selection-start-line="176" selection-start-column="23" selection-end-line="176" selection-end-column="23" />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/Order.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="123" column="16" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
+            <state relative-caret-position="1066">
+              <caret line="127" column="8" selection-start-line="127" selection-start-column="8" selection-end-line="135" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_order_finish.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="229" column="48" selection-start-line="229" selection-start-column="48" selection-end-line="229" selection-end-column="48" />
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="555">
+              <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
             </state>
           </provider>
-          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/OrderFinishActivity.kt">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/LoginActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="61" column="20" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="20" />
+            <state relative-caret-position="328">
+              <caret line="100" column="43" selection-start-line="100" selection-start-column="43" selection-end-line="100" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/ShopInfoActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1155">
+              <caret line="168" column="67" selection-start-line="168" selection-start-column="67" selection-end-line="168" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -171,7 +178,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/SplashActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/MyAppGlideModule.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/MyGilideModule.kt" />
@@ -197,7 +203,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/circle_button.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/circle_button_2.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/ReviewAdapter.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_logindetail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/MypageActivity.kt" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/menu.xml" />
@@ -215,21 +220,23 @@
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/MenuFood.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/Shopinfo.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/LoginActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/MapsActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_order_finish.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/OrderFinishActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/PaymentActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/Order.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_logindetail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/MapsActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/ShopInfoActivity.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/LoginActivity.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/LogindetailActivity.kt" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="618" />
-    <option name="y" value="301" />
-    <option name="width" value="1394" />
-    <option name="height" value="849" />
+    <option name="x" value="617" />
+    <option name="y" value="300" />
+    <option name="width" value="1395" />
+    <option name="height" value="850" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -238,18 +245,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Androidproject_maps" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Android_project" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -282,6 +277,18 @@
             <path>
               <item name="Androidproject_maps" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Androidproject_maps" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Android_project" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -494,10 +501,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.50141644" side_tool="true" weight="0.3295302" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49659863" visible="true" weight="0.15838926" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49659863" visible="true" weight="0.15771812" />
       <window_info id="Structure" order="2" sideWeight="0.50141644" side_tool="true" weight="0.3295302" />
       <window_info id="Favorites" order="3" sideWeight="0.50141644" side_tool="true" weight="0.3295302" />
       <window_info id="Build Variants" order="4" sideWeight="0.50340134" side_tool="true" weight="0.2986871" />
@@ -508,14 +514,14 @@
       <window_info id="Palette " order="9" weight="0.32995737" />
       <window_info x="1258" y="351" width="136" height="347" id="Component Tree" order="10" sideWeight="0.50054765" side_tool="true" type="SLIDING" weight="0.47619048" />
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.32944915" />
-      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.5516778" weight="0.31586403" />
+      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.5489933" weight="0.31586403" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49530202" weight="0.3286119" />
       <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.61543626" weight="0.32719547" />
-      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.118791945" side_tool="true" visible="true" weight="0.38668555" />
-      <window_info anchor="bottom" id="Build" order="5" sideWeight="0.7266622" weight="0.3548387" />
+      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.1261745" side_tool="true" visible="true" weight="0.31586403" />
+      <window_info anchor="bottom" id="Build" order="5" sideWeight="0.7261745" weight="0.35410765" />
       <window_info anchor="bottom" id="Android Profiler" order="6" sideWeight="0.4966443" weight="0.3286119" />
       <window_info anchor="bottom" id="Debug" order="7" sideWeight="0.49328858" weight="0.38668555" />
-      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.88120806" weight="0.3838527" />
+      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.8738255" weight="0.3838527" />
       <window_info anchor="bottom" id="SVN Repositories" order="9" weight="0.32944915" />
       <window_info anchor="bottom" id="Find" order="10" weight="0.32152975" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
@@ -563,18 +569,6 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/MapsActivity.kt</url>
-          <line>104</line>
-          <properties />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/border.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -592,16 +586,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/my info.png" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/LogindetailActivity.kt" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_order.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -649,7 +634,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/family.PNG" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_review.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_review_orderlist.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_logindetail.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/MypageActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -793,23 +777,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/LoginActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="123" column="57" selection-start-line="123" selection-start-column="57" selection-end-line="123" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/MapsActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="254" lean-forward="true" selection-start-line="254" selection-end-line="254" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_order_finish.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
+        <state relative-caret-position="3435">
           <caret line="229" column="48" selection-start-line="229" selection-start-column="48" selection-end-line="229" selection-end-column="48" />
         </state>
       </provider>
@@ -817,32 +787,69 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/OrderFinishActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="61" column="20" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/Order.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="123" column="16" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/ShopInfoActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-75">
-          <caret line="110" column="24" selection-start-line="110" selection-start-column="24" selection-end-line="110" selection-end-column="24" />
+        <state relative-caret-position="235">
+          <caret line="47" column="15" lean-forward="true" selection-start-line="47" selection-start-column="15" selection-end-line="47" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/PaymentActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="-585">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="e#41#567#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/MapsActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/Order.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1066">
+          <caret line="127" column="8" selection-start-line="127" selection-start-column="8" selection-end-line="135" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_logindetail.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1695">
+          <caret line="176" column="23" selection-start-line="176" selection-start-column="23" selection-end-line="176" selection-end-column="23" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/LoginActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="100" column="43" selection-start-line="100" selection-start-column="43" selection-end-line="100" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/LogindetailActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="22" column="42" lean-forward="true" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/androidproject_maps/ShopInfoActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1155">
+          <caret line="168" column="67" selection-start-line="168" selection-start-column="67" selection-end-line="168" selection-end-column="67" />
         </state>
       </provider>
     </entry>

@@ -78,7 +78,7 @@ class ShopInfoActivity :AppCompatActivity() {
             }
             db.orderByKey().limitToLast(20).addValueEventListener(valeventlistener)//reviews의 key값으로 정렬한후 가장큰(가장 최근)20개만 가져와라.
         }
-        initFBAuthState()
+        setLoginStatus()
 
         var adapter = MainListAdapter(this,menuArr,shopKey)
         var list : ListView = findViewById(R.id.mainListView)
@@ -160,7 +160,7 @@ class ShopInfoActivity :AppCompatActivity() {
             mFirebaseauth.removeAuthStateListener { mAuthStateListener }
         }
     }
-    private fun initFBAuthState(){
+    private fun setLoginStatus(){
         mAuthStateListener = object : FirebaseAuth.AuthStateListener{
             override fun onAuthStateChanged(p0: FirebaseAuth) {
                 var message : String

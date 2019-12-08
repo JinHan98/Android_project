@@ -3,9 +3,9 @@ package com.example.androidproject_maps
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -15,7 +15,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -74,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
                     //1.구글 로그인 버튼 클릭하면 이사람이 구글 사용자니 물어본다
                     val signInIntent = googleSignInClient.signInIntent
                     startActivityForResult(signInIntent, RC_SIGN_IN)//rc_Sign은 result 코드
+                    OKDialog()
 
                 }
             }
@@ -99,34 +99,35 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {//4.파이어베이스에서 이 사람의 정보 받아서
         //파이어베이스 서버 authentication으로 값이 넘어감
-        Log.d(ContentValues.TAG, "firebaseAuthWithGoogle:" + acct.id!!)
-
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         mFirebaseauth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    val user =  mFirebaseauth.currentUser
-                    //전화번호 받아야함.
-                    mDatabaseReference = FirebaseDatabase.getInstance().getReference("/Customers")
-                    mDatabaseReference.child(user!!.uid).child("phonenum").setValue("null")
-                    Toast.makeText(this@LoginActivity,"로그인 완료!", Toast.LENGTH_SHORT).show()
-                    Handler().postDelayed({},4000)
-                    //샵 인포로 넘기기
-                    var orderintent = Intent(this@LoginActivity, ShopInfoActivity::class.java)
-                    orderintent.putExtra("MenuArr", menuArr)
-                    orderintent.putExtra("ShopKey", shopKey)
-                    orderintent.putExtra("ShopName",shopName)
-                    orderintent.putExtra("ShopRating",shopRating.toFloat())
-                    orderintent.putExtra("Address", address)
-                    orderintent.putExtra("AccountHolder", accountHolder)
-                    orderintent.putExtra("Bank", bank)
-                    orderintent.putExtra("BankID", bankID)
-                    finish()
-                    startActivity(orderintent)
                 } else {
-
+                    Toast.makeText(this@LoginActivity,"오류가 발생하였습니다.",Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+    private fun OKDialog(){
+        var builder = AlertDialog.Builder(this@LoginActivity)
+        builder.setMessage("구글 인증 성공!!")
+        builder.setPositiveButton(
+            "확인"
+        ){dialog, which ->
+            //logindetailActivity로 넘기기
+            var intent = Intent(this@LoginActivity, LogindetailActivity::class.java)
+            intent.putExtra("MenuArr", menuArr)
+            intent.putExtra("ShopKey", shopKey)
+            intent.putExtra("ShopName",shopName)
+            intent.putExtra("ShopRating",shopRating.toFloat())
+            intent.putExtra("Address", address)
+            intent.putExtra("AccountHolder", accountHolder)
+            intent.putExtra("Bank", bank)
+            intent.putExtra("BankID", bankID)
+            finish()
+            startActivity(intent)
+        }
+        builder.show()
     }
 }

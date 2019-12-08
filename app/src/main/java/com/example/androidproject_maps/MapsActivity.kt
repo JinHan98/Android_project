@@ -23,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_maps.*
 import kotlinx.android.synthetic.main.activity_maps_listview_item.view.*
@@ -69,7 +70,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
         fusedLocationclient = LocationServices.getFusedLocationProviderClient(this)
 
-
         val txt:TextView=findViewById(R.id.textView33)
         //Database
         var latitude : Double
@@ -100,17 +100,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                             Shopinfo(shopName, shopKey!!)//DB에 shop 추가할때 무조건 key값이 생기니까 널일수없다
                         shopinfo.shopKey = shopKey.toString()
                         shopinfo.photoUrl = value.photourl
-                        shopinfo.shopRate = value.rating!!
+                        shopinfo.shopRate = value.rating
                         shopinfo.address = value.address
                         shopinfo.bank = value.bank
                         shopinfo.accountHolder = value.accountHolder
                         shopinfo.bankID = value.bankID
 
-                        latitude = value.latitude!!.toDouble()
+                        latitude = value.latitude.toDouble()
                         shopLocation.latitude = latitude
                         shopinfo.latitude=latitude
 
-                        longitude = value.longitude!!.toDouble()
+                        longitude = value.longitude.toDouble()
                         shopLocation.longitude = longitude
                         shopinfo.longitude=longitude
 

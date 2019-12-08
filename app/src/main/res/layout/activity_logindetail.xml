@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/nicknameEditTextView"
                 android:layout_width="240dp"
                 android:layout_height="44dp"
                 android:ems="10"
@@ -105,7 +105,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/phonenumEditTextView"
                 android:layout_width="224dp"
                 android:layout_height="43dp"
                 android:layout_marginTop="16dp"
@@ -172,19 +172,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout8">
 
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Button" />
+
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/OKbutton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:text="완료" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
