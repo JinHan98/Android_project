@@ -7,7 +7,7 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_fticon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrderFinishActivity"></activity>
+        <activity android:name=".Review_ReadActivity"></activity>
+        <activity android:name=".Review_WriteActivity" />
+        <activity android:name=".OrderFinishActivity" />
         <activity android:name=".MyinfoActivity" />
         <activity android:name=".ReviewActivity" />
         <activity android:name=".LogindetailActivity" />

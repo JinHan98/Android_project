@@ -29,7 +29,7 @@ class OrderFinishActivity : AppCompatActivity() {
         shopKey = intent.extras.getString("ShopKey")
         shopName = intent.extras.getString("ShopName")
         menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
-        shopRating = intent.extras.getFloat("ShopRating").toString()
+        shopRating = intent.extras.getString("ShopRating")
         address = intent.extras.getString("Address")
 
 

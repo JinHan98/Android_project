@@ -39,7 +39,7 @@ class PaymentActivity : AppCompatActivity() {
         customerRequest = intent.extras.getString("CustomerRequest")
         shopName = intent.extras.getString("ShopName")
         menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>//백버튼 눌렀을떄 shopinfoActivity로 돌아가기위해
-        shopRating = intent.extras.getFloat("ShopRating").toString()
+        shopRating = intent.extras.getString("ShopRating")
         bank = intent.extras.getString("Bank")
         bankID = intent.extras.getString("BankID")
         address = intent.extras.getString("Address")

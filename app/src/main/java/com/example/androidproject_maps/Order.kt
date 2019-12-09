@@ -31,7 +31,7 @@ class Order : AppCompatActivity() {
         shopKey = intent.extras.getString("ShopKey")
         uid = intent.extras.getString("uid")
         shopName = intent.extras.getString("ShopName")
-        shopRating = intent.extras.getFloat("ShopRating").toString()
+        shopRating = intent.extras.getString("ShopRating")
         bank = intent.extras.getString("Bank")
         bankID = intent.extras.getString("BankID")
         address = intent.extras.getString("Address")

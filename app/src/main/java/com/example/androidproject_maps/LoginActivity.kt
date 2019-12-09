@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
         shopKey = intent.extras.getString("ShopKey")
         shopName = intent.extras.getString("ShopName")
-        shopRating = intent.extras.getFloat("ShopRating").toString()
+        shopRating = intent.extras.getString("ShopRating")
         bank = intent.extras.getString("Bank")
         bankID = intent.extras.getString("BankID")
         address = intent.extras.getString("Address")
