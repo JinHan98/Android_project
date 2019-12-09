@@ -11,7 +11,7 @@ class MypageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage)
-
+        var uid = intent.extras.getString("Uid")
         reviewbt.setOnClickListener{
             val reviewintent = Intent(this, ReviewActivity::class.java)
             startActivity(reviewintent)
@@ -19,6 +19,7 @@ class MypageActivity : AppCompatActivity() {
 
         myinfobt.setOnClickListener{
             val myinfointent = Intent(this, MyinfoActivity::class.java)
+            myinfointent.putExtra("Uid",uid)
             startActivity(myinfointent)
         }
 

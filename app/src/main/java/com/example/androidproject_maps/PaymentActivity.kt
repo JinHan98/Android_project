@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.Exclude
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.IgnoreExtraProperties
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_payment.*
 import java.sql.Time
 import java.text.SimpleDateFormat
@@ -74,13 +71,50 @@ class PaymentActivity : AppCompatActivity() {
         ) { dialog, which ->
             database = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/")
             writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid)
+            var order_key_shop = order_key
             database = FirebaseDatabase.getInstance().getReference("/Customers/"+uid+"/")//손님 DB에도 올려야함
             writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid)
-            for(orderMenu in orderMenuList){
+            for(orderMenu in orderMenuList){//주문한 매뉴를 DB에 올리기
                 database = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/")
-                writeNewOrderMenu(orderMenu.name,orderMenu.amounts, order_key)
+                writeNewOrderMenu(orderMenu.name,orderMenu.amounts, order_key_shop)
                 database = FirebaseDatabase.getInstance().getReference("/Customers/"+uid+"/")//손님 DB에도 올려야함
                 writeNewOrderMenu(orderMenu.name,orderMenu.amounts, order_key)
+                database = FirebaseDatabase.getInstance().getReference("/Customers/")
+                val valeventlistener = object : ValueEventListener {
+                    override fun onDataChange(p0: DataSnapshot) {
+                        for(snapshot : DataSnapshot in p0.children) {
+                            val value = snapshot.getValue(Customer::class.java)
+                            if(value!=null){
+                                val valueKey = snapshot.key.toString()
+                                if(valueKey.equals(uid)){
+                                    //고객의 총 주문 가격 업데이트
+                                    val totalpay = value.totalpay
+                                    var db = FirebaseDatabase.getInstance().getReference("/Customers/" + uid + "/totalpay/")
+                                    val newtotalpay = totalpay.toInt() + pay.toInt()
+                                    db.setValue(newtotalpay.toString())
+                                    //등급 업데이트
+                                    if(newtotalpay>2000000){
+                                        var db = FirebaseDatabase.getInstance().getReference("/Customers/" + uid + "/ratingurl/")
+                                        db.setValue("/images/ClientLevel/vip.PNG")
+                                    }
+                                    else if(newtotalpay>1000000){
+                                        var db = FirebaseDatabase.getInstance().getReference("/Customers/" + uid + "/ratingurl/")
+                                        db.setValue("/images/ClientLevel/gold.PNG")
+                                    }
+                                    else{
+                                        var db = FirebaseDatabase.getInstance().getReference("/Customers/" + uid + "/ratingurl/")
+                                        db.setValue("/images/ClientLevel/silver.PNG")
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+                }
+                database.addListenerForSingleValueEvent(valeventlistener)
             }
             val finishintent = Intent(this, OrderFinishActivity::class.java)
             finishintent.putExtra("Bank",bank)

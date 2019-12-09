@@ -53,6 +53,10 @@ class LogindetailActivity : AppCompatActivity() {
             mdataBase.setValue(phoneNum)
             mdataBase = FirebaseDatabase.getInstance().getReference("/Customers/"+mUid+"/nickname/")
             mdataBase.setValue(nickName)
+            mdataBase = FirebaseDatabase.getInstance().getReference("/Customers/"+mUid+"/totalpay/")
+            mdataBase.setValue("0")
+            mdataBase = FirebaseDatabase.getInstance().getReference("/Customers/"+mUid+"/ratingurl/")
+            mdataBase.setValue("/images/ClientLevel/silver.PNG")
             //shopinfoActivity로 넘기기
             var intent = Intent(this@LogindetailActivity, ShopInfoActivity::class.java)
             intent.putExtra("MenuArr", menuArr)

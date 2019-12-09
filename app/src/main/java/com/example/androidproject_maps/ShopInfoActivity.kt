@@ -5,11 +5,10 @@ import android.content.ContentValues
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.ListView
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -24,21 +23,29 @@ class ShopInfoActivity :AppCompatActivity() {
     private lateinit var mAuthStateListener : FirebaseAuth.AuthStateListener
     private var loginStatus : Boolean = false
     private lateinit var uid : String
+    private lateinit var shopKey : String
+    private lateinit var shopName : String
+    private lateinit var menuArr : ArrayList<MenuFood>
+    private lateinit var shopRating : String
+    private lateinit var bank : String
+    private lateinit var bankID : String
+    private lateinit var address : String
+    private lateinit var accountHolder : String
     var reviewList : ArrayList<Review> = arrayListOf()
     var reviewAdapter = ReviewAdapter(this,reviewList)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop_info)
 
-        val shopKey = intent.extras.getString("ShopKey")
-        val shopName = intent.extras.getString("ShopName")
-        val menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
-        val shopRating = intent.extras.getFloat("ShopRating")
-        val bank = intent.extras.getString("Bank")
-        val bankID = intent.extras.getString("BankID")
-        val address = intent.extras.getString("Address")
-        val accountHolder = intent.extras.getString("AccountHolder")
-        ratingBar2.rating = shopRating
+        shopKey = intent.extras.getString("ShopKey")
+        shopName = intent.extras.getString("ShopName")
+        menuArr = intent.getSerializableExtra("MenuArr") as ArrayList<MenuFood>
+        shopRating = intent.extras.getFloat("ShopRating").toString()
+        bank = intent.extras.getString("Bank")
+        bankID = intent.extras.getString("BankID")
+        address = intent.extras.getString("Address")
+        accountHolder = intent.extras.getString("AccountHolder")
+        ratingBar2.rating = shopRating.toFloat()
 
         mFirebaseauth = FirebaseAuth.getInstance()
 
@@ -84,7 +91,7 @@ class ShopInfoActivity :AppCompatActivity() {
         var list : ListView = findViewById(R.id.mainListView)
         list.setAdapter(adapter)
         shop_name.text = shopName
-        /* Reference to an image file in Cloud Storage*/
+        /* 상점 이미지 세팅*/
         val storage = FirebaseStorage.getInstance().reference
         var storageShopImgRef = storage.child("images").child(shopKey).child("ShopImg").child("foodtruck.png")
         /*메모리에 다운로드, 앱이 꺼지면 날라감*/
@@ -112,42 +119,48 @@ class ShopInfoActivity :AppCompatActivity() {
                 startActivity(orderintent)
             } else {
                 //로그인 안되어있으면 로그인창으로 넘기기
-                Toast.makeText(this@ShopInfoActivity,"로그인이 되어있지 않습니다. 로그인창으로 넘어갑니다.",Toast.LENGTH_SHORT).show()
-                Handler().postDelayed({},4000)
-                var loginintent = Intent(this@ShopInfoActivity, LoginActivity::class.java)
-                loginintent.putExtra("MenuArr", menuArr)
-                loginintent.putExtra("ShopKey", shopKey)
-                loginintent.putExtra("ShopName",shopName)
-                loginintent.putExtra("ShopRating",shopRating)
-                loginintent.putExtra("Address",address)
-                loginintent.putExtra("Bank",bank)
-                loginintent.putExtra("BankID",bankID)
-                loginintent.putExtra("AccountHolder",accountHolder)
-                startActivity(loginintent)
+                signinDialog()
             }
         }
 
         mypagebt.setOnClickListener{
             if(loginStatus) {
                 var mypageintent = Intent(this@ShopInfoActivity, MypageActivity::class.java)
-                mypageintent.putExtra("Shopkey", shopKey)
-                mypageintent.putExtra("ShopName", shopName)
+                mypageintent.putExtra("Uid",uid)
                 startActivity(mypageintent)
             }
             else{
-                //로그인 안되어있으면 로그인창으로 넘기기
-                Toast.makeText(this@ShopInfoActivity,"로그인이 되어있지 않습니다. 로그인창으로 넘어갑니다.",Toast.LENGTH_SHORT).show()
-                Handler().postDelayed({},4000)
-                var loginintent = Intent(this@ShopInfoActivity, LoginActivity::class.java)
-                loginintent.putExtra("MenuArr", menuArr)
-                loginintent.putExtra("ShopKey", shopKey)
-                loginintent.putExtra("ShopName",shopName)
-                startActivity(loginintent)
+                signinDialog()
             }
         }
 
 
 
+    }
+    private fun signinDialog(){
+       var builder = AlertDialog.Builder(this@ShopInfoActivity)
+        builder.setMessage("회원가입이 필요합니다.\n회원가입 창으로 이동하시겠습니까?")
+        builder.setPositiveButton(
+            "예"
+        ){dialog, which ->
+            var loginintent = Intent(this@ShopInfoActivity, LoginActivity::class.java)
+            loginintent.putExtra("MenuArr", menuArr)
+            loginintent.putExtra("ShopKey", shopKey)
+            loginintent.putExtra("ShopName",shopName)
+            loginintent.putExtra("ShopRating",shopRating)
+            loginintent.putExtra("Address",address)
+            loginintent.putExtra("Bank",bank)
+            loginintent.putExtra("BankID",bankID)
+            loginintent.putExtra("AccountHolder",accountHolder)
+            finish()
+            startActivity(loginintent)
+        }
+        builder.setNegativeButton(
+            "아니오"
+        ){dialog, which ->
+
+        }
+        builder.show()
     }
     override fun onStart() {//oncreate 다음에 호출  액티비티가 사용자에게 보여지기 직전에 호출됨
         super.onStart()
