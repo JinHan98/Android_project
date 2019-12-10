@@ -75,7 +75,6 @@ class Order : AppCompatActivity() {
                         var menufood = MenuFood(name, price, "")
                         menufood.amounts = num
                         ordermenuList.add(menufood)
-                        //writeNewOrderMenu(view.foodnameTxt.text.toString(), num, order_key)
                     }
                 }
 

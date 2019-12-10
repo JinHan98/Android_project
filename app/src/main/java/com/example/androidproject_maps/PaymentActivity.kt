@@ -44,12 +44,8 @@ class PaymentActivity : AppCompatActivity() {
         bankID = intent.extras.getString("BankID")
         address = intent.extras.getString("Address")
         accountHolder = intent.extras.getString("AccountHolder")
-        //주문 시간 구하기
-        var now = System.currentTimeMillis()
-        var timenow = Time(now)
-        var ordertimeDataFomat = SimpleDateFormat("hh:mm:ss a")
-        orderTime = ordertimeDataFomat.format(timenow)
 
+        addressText.text = address
 
 
         payText.text = pay.toString() + " 원"
@@ -69,17 +65,23 @@ class PaymentActivity : AppCompatActivity() {
         builder.setPositiveButton(
             "예"
         ) { dialog, which ->
+            //주문 시간 구하기
+            var now = System.currentTimeMillis()
+            var timenow = Time(now)
+            var ordertimeDataFomat = SimpleDateFormat("hh:mm:ss a")
+            orderTime = ordertimeDataFomat.format(timenow)
+            //DB에 올리기
             database = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/")
-            writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid)
+            writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid,false,shopName)
             var order_key_shop = order_key
             database = FirebaseDatabase.getInstance().getReference("/Customers/"+uid+"/")//손님 DB에도 올려야함
-            writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid)
+            writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid,false,shopName)
             for(orderMenu in orderMenuList){//주문한 매뉴를 DB에 올리기
                 database = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/")
                 writeNewOrderMenu(orderMenu.name,orderMenu.amounts, order_key_shop)
                 database = FirebaseDatabase.getInstance().getReference("/Customers/"+uid+"/")//손님 DB에도 올려야함
                 writeNewOrderMenu(orderMenu.name,orderMenu.amounts, order_key)
-                database = FirebaseDatabase.getInstance().getReference("/Customers/")
+                database = FirebaseDatabase.getInstance().getReference("/Customers/")//손님 레이팅 업데이트
                 val valeventlistener = object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
                         for(snapshot : DataSnapshot in p0.children) {
@@ -178,7 +180,10 @@ data class OrderInfo (
     var customerRequest : String = "",
     var ordertime : String = "",
     var status : Int = 0,//0 대기중(수락대기중) 1 처리중(요리중) 2 완료 (음식이 나감)
-    var customerUid : String,
+    var customerUid : String ="",
+    var iswritereview : Boolean = false,
+    var shopname : String = "",
+    var mykey : String = "",//리뷰쓸때 리뷰의 key로 이용.
     var stars: MutableMap<String, Boolean> = HashMap()
 ) {
 
@@ -191,11 +196,14 @@ data class OrderInfo (
             "ordertime" to ordertime,
             "status" to status,
             "customerUid" to customerUid,
+            "iswritereview" to iswritereview,
+            "shopname" to shopname,
+            "mykey" to mykey,
             "stars" to stars
         )
     }
 }
-private fun writeNewOrderInfo(pay: String,phoneNum: String,customerRequest: String,ordertime: String,customerUid: String) {
+private fun writeNewOrderInfo(pay: String,phoneNum: String,customerRequest: String,ordertime: String,customerUid: String,iswritereview: Boolean,shopname: String) {
     // Create new post at /user-posts/$userid/$postid and at
     // /posts/$postid simultaneously
     val key = database.child("orders").push().key
@@ -205,7 +213,7 @@ private fun writeNewOrderInfo(pay: String,phoneNum: String,customerRequest: Stri
         return
     }
 
-    val order = OrderInfo(pay, phoneNum, customerRequest,ordertime,0,customerUid)
+    val order = OrderInfo(pay, phoneNum, customerRequest,ordertime,0,customerUid,iswritereview,shopname,key)
     val orderValues = order.toMap()
     val childUpdates = HashMap<String, Any>()
     childUpdates["/orders/$key"] = orderValues

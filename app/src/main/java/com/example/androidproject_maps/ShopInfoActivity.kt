@@ -127,6 +127,8 @@ class ShopInfoActivity :AppCompatActivity() {
             if(loginStatus) {
                 var mypageintent = Intent(this@ShopInfoActivity, MypageActivity::class.java)
                 mypageintent.putExtra("Uid",uid)
+                mypageintent.putExtra("ShopKey",shopKey)
+                mypageintent.putExtra("ShopName",shopName)
                 startActivity(mypageintent)
             }
             else{
@@ -203,6 +205,7 @@ data class Shop (
     var rating: Float = 0.toFloat() ,
     var photourl : String = "",
     var ownerUid : String = "",
+    var review_count : String = "0",
     var stars: MutableMap<String, Boolean> = HashMap()
 ) {
 
@@ -301,22 +304,4 @@ data class Review (
             "time" to time
         )
     }
-}
-private fun writeNewReview(client_name : String , client_uid : String,rating : Float,client_rating_url: String,photourl: String,review_text: String,shopKey : String,time : String) {
-    // Create new post at /user-posts/$userid/$postid and at
-    // /posts/$postid simultaneously
-    val key = database.child("reviews").push().key
-    if (key == null) {
-        Log.w(ContentValues.TAG, "Couldn't get push key for reviews")
-        return
-    }
-
-    val Review = Review(client_name, client_uid, rating ,client_rating_url,photourl,review_text,shopKey,time)
-    val reviewValues = Review.toMap()
-
-    val childUpdates = HashMap<String, Any>()
-    childUpdates["/reviews/$key"] = reviewValues
-
-
-    database.updateChildren(childUpdates)
 }

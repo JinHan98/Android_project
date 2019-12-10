@@ -12,8 +12,13 @@ class MypageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage)
         var uid = intent.extras.getString("Uid")
+        var shopKey = intent.extras.getString("ShopKey")
+        var shopName = intent.extras.getString("ShopName")
         reviewbt.setOnClickListener{
             val reviewintent = Intent(this, ReviewActivity::class.java)
+            reviewintent.putExtra("Uid",uid)
+            reviewintent.putExtra("ShopKey",shopKey)
+            reviewintent.putExtra("ShopName",shopName)
             startActivity(reviewintent)
         }
 
