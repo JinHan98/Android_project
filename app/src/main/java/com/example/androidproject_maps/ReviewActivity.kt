@@ -18,10 +18,11 @@ class ReviewActivity : AppCompatActivity() {
         shopKey = intent.extras.getString("ShopKey")
         shopName = intent.extras.getString("ShopName")
         mDataBaseReference = FirebaseDatabase.getInstance().getReference("Customers/"+uid+"/orders/")
-        var orderList = arrayListOf<OrderInfo>()
-        var allOrderMenuList = arrayListOf<ArrayList<OrderMenu>>()
+
         val valeventlistener = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
+                var orderList = arrayListOf<OrderInfo>()
+                var allOrderMenuList = arrayListOf<ArrayList<OrderMenu>>()
                 for (snapshot: DataSnapshot in p0.children) {
                     val value = snapshot.getValue(OrderInfo::class.java)
                     if (value != null) {

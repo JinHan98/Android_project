@@ -45,7 +45,7 @@ class ShopInfoActivity :AppCompatActivity() {
         bankID = intent.extras.getString("BankID")
         address = intent.extras.getString("Address")
         accountHolder = intent.extras.getString("AccountHolder")
-        ratingBar2.rating = shopRating.toFloat()
+        //ratingBar2.rating = shopRating.toFloat()
 
         mFirebaseauth = FirebaseAuth.getInstance()
 
@@ -135,6 +135,25 @@ class ShopInfoActivity :AppCompatActivity() {
                 signinDialog()
             }
         }
+        var db = FirebaseDatabase.getInstance().getReference("shops/")
+        val valeventlistener = object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                for (snapshot: DataSnapshot in p0.children) {
+                    if(snapshot.key.equals(shopKey)) {
+                        val value: Shop? = snapshot.getValue(Shop::class.java)
+                        if (value != null) {
+                            ratingBar2.rating = value.rating
+                        }
+                    }
+                }
+            }
+
+
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
+        db.addValueEventListener(valeventlistener)
 
 
 

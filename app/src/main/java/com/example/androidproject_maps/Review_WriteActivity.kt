@@ -132,21 +132,19 @@ class Review_WriteActivity : AppCompatActivity() {
                                                 val value2 = snapshot.getValue(Shop::class.java)
                                                 if (value2 != null) {
                                                     var db = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/rating/")
-                                                    if(value2.review_count.equals(0)) {
-                                                        db.setValue(review_rating.rating)
-                                                        var db2 = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/review_count/")
-                                                        var new_reviewcount = "1"
-                                                        db2.setValue(new_reviewcount)
-                                                    }
-                                                    else{
-                                                        val newRating = (value2.rating.toDouble()*value2.review_count.toDouble()+review_rating.rating.toDouble())/
-                                                                (value2.review_count+1).toDouble()
 
-                                                        db.setValue(newRating.toFloat())
-                                                        var db2 = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/review_count/")
-                                                        var new_reviewcount = value2.review_count.toInt()+1
-                                                        db2.setValue(new_reviewcount.toString())
-                                                    }
+                                                    val v1 = value2.rating.toDouble()*value2.review_count.toDouble()
+                                                    val v2 = review_rating.rating.toDouble()
+                                                    val v3 = value2.review_count.toDouble()+1.toDouble()
+                                                    val v4 = (v1+v2)/v3
+                                                    val newRating = (value2.rating.toDouble()*value2.review_count.toDouble()+review_rating.rating.toDouble())/
+                                                            (value2.review_count.toDouble()+1.toDouble())
+
+                                                    db.setValue(newRating.toFloat())
+                                                    var db2 = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/review_count/")
+                                                    var new_reviewcount = value2.review_count.toInt()+1
+                                                    db2.setValue(new_reviewcount.toString())
+
 
                                                 }
                                             }
