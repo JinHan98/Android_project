@@ -113,8 +113,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                         shopLocation.longitude = longitude
                         shopinfo.longitude=longitude
 
-                        addresslist=geocoder.getFromLocation(latitude,longitude,1)
-                        txt.text= (addresslist as MutableList<Address>?)!![0]?.getAddressLine(0)//좌표를 주소로 받은코드
+                        /*addresslist=geocoder.getFromLocation(latitude,longitude,1)
+                        txt.text= (addresslist as MutableList<Address>?)!![0]?.getAddressLine(0)*///좌표를 주소로 받은코드
 
                         var distance = mCurrentLocation.distanceTo(shopLocation)
                         if (distance < DISTANCE) {//현재 위치와 1km 이내에 있는 shop이라면

@@ -16,20 +16,22 @@
     <ListView
         android:id="@+id/shopviewlist"
         android:layout_width="match_parent"
-        android:layout_height="269dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp" >
-    </ListView>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView33"
+        android:layout_marginTop="-18dp"></ListView>
+
     <Button
         android:id="@+id/ShopButton"
-        android:layout_width="600dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="615dp"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_alignBottom="@+id/shopviewlist"
+        android:layout_marginBottom="0dp"
         android:backgroundTint="@color/colorAccent"
         android:fontFamily="@font/binggrae"
         android:text="주문하러가기"
         android:textSize="24sp"
         android:visibility="gone"/>
+
     <TextView
         android:id="@+id/textView33"
         android:layout_width="match_parent"
