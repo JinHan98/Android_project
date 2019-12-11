@@ -45,7 +45,6 @@ class ShopInfoActivity :AppCompatActivity() {
         bankID = intent.extras.getString("BankID")
         address = intent.extras.getString("Address")
         accountHolder = intent.extras.getString("AccountHolder")
-        //ratingBar2.rating = shopRating.toFloat()
 
         mFirebaseauth = FirebaseAuth.getInstance()
 
@@ -127,8 +126,6 @@ class ShopInfoActivity :AppCompatActivity() {
             if(loginStatus) {
                 var mypageintent = Intent(this@ShopInfoActivity, MypageActivity::class.java)
                 mypageintent.putExtra("Uid",uid)
-                mypageintent.putExtra("ShopKey",shopKey)
-                mypageintent.putExtra("ShopName",shopName)
                 startActivity(mypageintent)
             }
             else{

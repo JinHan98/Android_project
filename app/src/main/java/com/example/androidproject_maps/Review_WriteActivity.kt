@@ -133,10 +133,6 @@ class Review_WriteActivity : AppCompatActivity() {
                                                 if (value2 != null) {
                                                     var db = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/rating/")
 
-                                                    val v1 = value2.rating.toDouble()*value2.review_count.toDouble()
-                                                    val v2 = review_rating.rating.toDouble()
-                                                    val v3 = value2.review_count.toDouble()+1.toDouble()
-                                                    val v4 = (v1+v2)/v3
                                                     val newRating = (value2.rating.toDouble()*value2.review_count.toDouble()+review_rating.rating.toDouble())/
                                                             (value2.review_count.toDouble()+1.toDouble())
 

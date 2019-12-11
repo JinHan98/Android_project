@@ -8,15 +8,12 @@ import kotlinx.android.synthetic.main.activity_review.*
 class ReviewActivity : AppCompatActivity() {
     private lateinit var uid : String
     private lateinit var mDataBaseReference: DatabaseReference
-    private lateinit var shopKey : String
-    private lateinit var shopName : String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review)
         uid = intent.extras.getString("Uid")
-        shopKey = intent.extras.getString("ShopKey")
-        shopName = intent.extras.getString("ShopName")
         mDataBaseReference = FirebaseDatabase.getInstance().getReference("Customers/"+uid+"/orders/")
 
         val valeventlistener = object : ValueEventListener {
@@ -25,6 +22,7 @@ class ReviewActivity : AppCompatActivity() {
                 var allOrderMenuList = arrayListOf<ArrayList<OrderMenu>>()
                 for (snapshot: DataSnapshot in p0.children) {
                     val value = snapshot.getValue(OrderInfo::class.java)
+
                     if (value != null) {
                         orderList.add(value)
                         for (snapshot2: DataSnapshot in snapshot.children) {
@@ -41,7 +39,7 @@ class ReviewActivity : AppCompatActivity() {
                         }
                     }
                 }
-                var adapter = MyOrderAdapter(this@ReviewActivity,orderList,allOrderMenuList,uid,shopKey,shopName)
+                var adapter = MyOrderAdapter(this@ReviewActivity,orderList,allOrderMenuList,uid)
                 review_list.adapter = adapter
             }
 

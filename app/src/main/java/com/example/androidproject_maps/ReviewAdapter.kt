@@ -18,6 +18,8 @@ class ReviewAdapter (val context: Context, val ReviewList: ArrayList<Review>): B
         val rating = view.findViewById<RatingBar>(R.id.ratingBar)
         val review_text = view.findViewById<TextView>(R.id.review_text)
         val reverse_idx = ReviewList.size -1 - position//가장 최근것이 맨위로 올라가기 위해서
+        val review_day = view.findViewById<TextView>(R.id.review_timeView)
+        review_day.text = ReviewList.get(reverse_idx).time
         name.text = ReviewList.get(reverse_idx).client_name
         rating.rating = ReviewList.get(reverse_idx).rating
         review_text.text = ReviewList.get(reverse_idx).review_text

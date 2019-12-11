@@ -75,10 +75,10 @@ class PaymentActivity : AppCompatActivity() {
             orderDay = orderdayDataFomat.format(timenow)
             //DB에 올리기
             database = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/")
-            writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid,false,shopName,orderDay)
+            writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid,false,shopName,orderDay,shopKey)
             var order_key_shop = order_key
             database = FirebaseDatabase.getInstance().getReference("/Customers/"+uid+"/")//손님 DB에도 올려야함
-            writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid,false,shopName,orderDay)
+            writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid,false,shopName,orderDay,shopKey)
             for(orderMenu in orderMenuList){//주문한 매뉴를 DB에 올리기
                 database = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/")
                 writeNewOrderMenu(orderMenu.name,orderMenu.amounts, order_key_shop)
@@ -188,6 +188,7 @@ data class OrderInfo (
     var shopname : String = "",
     var mykey : String = "",//리뷰쓸때 리뷰의 key로 이용.
     var orderday : String ="",
+    var shopKey : String = "",
     var stars: MutableMap<String, Boolean> = HashMap()
 ) {
 
@@ -204,11 +205,12 @@ data class OrderInfo (
             "shopname" to shopname,
             "mykey" to mykey,
             "orderday" to orderday,
+            "shopKey" to shopKey,
             "stars" to stars
         )
     }
 }
-private fun writeNewOrderInfo(pay: String,phoneNum: String,customerRequest: String,ordertime: String,customerUid: String,iswritereview: Boolean,shopname: String,orderday: String) {
+private fun writeNewOrderInfo(pay: String,phoneNum: String,customerRequest: String,ordertime: String,customerUid: String,iswritereview: Boolean,shopname: String,orderday: String,shopKey: String) {
     // Create new post at /user-posts/$userid/$postid and at
     // /posts/$postid simultaneously
     val key = database.child("orders").push().key
@@ -218,7 +220,7 @@ private fun writeNewOrderInfo(pay: String,phoneNum: String,customerRequest: Stri
         return
     }
 
-    val order = OrderInfo(pay, phoneNum, customerRequest,ordertime,0,customerUid,iswritereview,shopname,key,orderday)
+    val order = OrderInfo(pay, phoneNum, customerRequest,ordertime,0,customerUid,iswritereview,shopname,key,orderday,shopKey)
     val orderValues = order.toMap()
     val childUpdates = HashMap<String, Any>()
     childUpdates["/orders/$key"] = orderValues
