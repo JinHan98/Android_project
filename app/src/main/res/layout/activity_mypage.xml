@@ -22,7 +22,6 @@
             android:layout_height="90dp">
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="49dp"
                 android:layout_marginTop="16dp"
@@ -37,7 +36,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView2"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_marginStart="16dp"
@@ -99,7 +97,6 @@
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <ImageView
-                            android:id="@+id/imageView5"
                             android:layout_width="122dp"
                             android:layout_height="125dp"
                             android:layout_marginBottom="40dp"
@@ -127,7 +124,6 @@
                         app:srcCompat="@mipmap/ic_launcher_reviews_icon_round" />
 
                     <TextView
-                        android:id="@+id/textView19"
                         android:layout_width="match_parent"
                         android:layout_height="49dp"
                         android:fontFamily="@font/ttadak"
@@ -161,7 +157,6 @@
                         app:srcCompat="@mipmap/ic_launcher_myinfo_icon_round" />
 
                     <TextView
-                        android:id="@+id/textView11"
                         android:layout_width="match_parent"
                         android:layout_height="49dp"
                         android:fontFamily="@font/ttadak"
@@ -187,7 +182,6 @@
                         app:srcCompat="@mipmap/ic_launcher_logout_icon_round" />
 
                     <TextView
-                        android:id="@+id/textView17"
                         android:layout_width="match_parent"
                         android:layout_height="49dp"
                         android:fontFamily="@font/ttadak"

@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,13 +12,12 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView46"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/binggrae"
             android:gravity="center_horizontal|center_vertical"
             android:text="가게명"
-            android:fontFamily="@font/binggrae"
             android:textSize="18sp" />
 
         <TextView
@@ -38,7 +38,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView48"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -64,13 +63,12 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView50"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/binggrae"
             android:gravity="center_horizontal|center_vertical"
             android:text="주문금액"
-            android:fontFamily="@font/binggrae"
             android:textSize="18sp" />
 
         <TextView
@@ -90,7 +88,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView52"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
