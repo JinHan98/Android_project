@@ -23,7 +23,6 @@
         <activity android:name=".ReviewActivity" />
         <activity android:name=".LogindetailActivity" />
         <activity android:name=".MypageActivity" />
-        <activity android:name=".Review_item_Activity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".PaymentActivity" />
         <activity android:name=".ShopDetailActivity" />
