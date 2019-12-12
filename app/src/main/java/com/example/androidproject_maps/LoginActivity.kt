@@ -22,7 +22,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var mFirebaseauth: FirebaseAuth
     private lateinit var mAuthStateListener : FirebaseAuth.AuthStateListener
-    private lateinit var mDatabaseReference: DatabaseReference
     private lateinit var menuArr : ArrayList<MenuFood>
     private lateinit var shopKey : String
     private lateinit var shopName : String

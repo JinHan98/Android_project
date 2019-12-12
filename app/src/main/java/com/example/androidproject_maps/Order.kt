@@ -95,7 +95,7 @@ class Order : AppCompatActivity() {
                 finish()
                 startActivity(paymentintent)
             }
-            else{
+            else{//pay=0일경우 즉, 아무것도 주문 안했는데 결제창으로 넘어가려고 한경우
                 orderDialogShow()
             }
 

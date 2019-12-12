@@ -49,7 +49,7 @@ class PaymentActivity : AppCompatActivity() {
         addressText.text = address
 
 
-        payText.text = pay.toString() + " 원"
+        payText.text = pay + " 원"
         accountbt.setOnClickListener{
             order_way = "계좌이체"
             payDialogShow()
@@ -247,8 +247,6 @@ data class OrderMenu(
     }
 }
 private fun writeNewOrderMenu(food_name: String, amounts: String, orderKey : String) {
-    // Create new post at /user-posts/$userid/$postid and at
-    // /posts/$postid simultaneously
     val key = database.child("orders/ordermenus").push().key
 
     if (key == null) {

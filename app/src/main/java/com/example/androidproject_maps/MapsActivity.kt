@@ -91,7 +91,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 for(snapshot : DataSnapshot in p0.children) {
                     val value: Shop? = snapshot.getValue(Shop::class.java)
                     if (value != null) {
-                        shopName = value.shop_name.toString()
+                        shopName = value.shop_name
                         shopKey = snapshot.key //key값 받아내기  중요
 
 
@@ -125,18 +125,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                         for (snapshot2: DataSnapshot in snapshot.children) {
                             if (snapshot2.key.toString().equals("menus")) {
                                 for (snapshot3: DataSnapshot in snapshot2.children) {
+
                                     val menus: Foodmenu? = snapshot3.getValue(Foodmenu::class.java)
+                                    if(menus != null) {
+                                        food_name = menus.food_name.toString()
+                                        price = menus.price.toString()
 
-                                    food_name = menus?.food_name.toString()
-                                    price = menus?.price.toString()
-
-                                    shopinfo.menuArr.add(
-                                        MenuFood(
-                                            food_name,
-                                            price,
-                                            menus?.photourl!!
+                                        shopinfo.menuArr.add(
+                                            MenuFood(
+                                                food_name,
+                                                price,
+                                                menus.photourl!!
+                                            )
                                         )
-                                    )
+                                    }
                                 }
                             }
                         }
@@ -150,47 +152,72 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                         map.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
 
                             override fun onMarkerClick(p0: Marker?): Boolean {
-
-                                for (shop in shopinfoArr) {
-                                    if (p0!!.title.equals(shop.name)) {
-                                        targetNum = shopinfoArr.indexOf(shop)
+                                if (p0 != null) {
+                                    for (shop in shopinfoArr) {
+                                        if (p0.title.equals(shop.name)) {
+                                            targetNum = shopinfoArr.indexOf(shop)
+                                        }
                                     }
-                                }
-                                var targetShop : String
-                                for (shop in shoplist_listview) {
-                                    if (shop.name.equals(p0!!.title)) {
-                                        targetNum = shopinfoArr.indexOf(shop)
-                                        targetShop = shop.name
-                                        for ( i in 0 .. shopviewlist.size-1) {
-                                            if (shopviewlist[i].foodNameTv.text.equals(targetShop)) {
-                                                shopviewlist[i].setBackgroundColor(Color.rgb(194, 194, 194))
-                                            } else {
-                                                shopviewlist[i].setBackgroundColor(Color.WHITE)
+                                    var targetShop: String
+                                    for (shop in shoplist_listview) {
+                                        if (shop.name.equals(p0.title)) {
+                                            targetNum = shopinfoArr.indexOf(shop)
+                                            targetShop = shop.name
+                                            for (i in 0..shopviewlist.size - 1) {
+                                                if (shopviewlist[i].foodNameTv.text.equals(
+                                                        targetShop
+                                                    )
+                                                ) {
+                                                    shopviewlist[i].setBackgroundColor(
+                                                        Color.rgb(
+                                                            194,
+                                                            194,
+                                                            194
+                                                        )
+                                                    )
+                                                } else {
+                                                    shopviewlist[i].setBackgroundColor(Color.WHITE)
+                                                }
                                             }
                                         }
                                     }
-                                }
 
-                                ShopButton.setOnClickListener {
+                                    ShopButton.setOnClickListener {
 
-                                    val intent =
-                                        Intent(applicationContext, ShopInfoActivity::class.java)
-                                    intent.putExtra("Address",shopinfoArr.get(targetNum).address)
-                                    intent.putExtra("Bank",shopinfoArr.get(targetNum).bank)
-                                    intent.putExtra("BankID",shopinfoArr.get(targetNum).bankID)
-                                    intent.putExtra("AccountHolder",shopinfoArr.get(targetNum).accountHolder)
-                                    intent.putExtra("ShopKey", shopinfoArr.get(targetNum).shopKey)
-                                    intent.putExtra("ShopName", shopinfoArr.get(targetNum).name)
-                                    intent.putExtra("MenuArr", shopinfoArr.get(targetNum).menuArr)
-                                    intent.putExtra("ShopRating",shopinfoArr.get(targetNum).shopRate)
-                                    startActivity(intent)
+                                        val intent =
+                                            Intent(applicationContext, ShopInfoActivity::class.java)
+                                        intent.putExtra(
+                                            "Address",
+                                            shopinfoArr.get(targetNum).address
+                                        )
+                                        intent.putExtra("Bank", shopinfoArr.get(targetNum).bank)
+                                        intent.putExtra("BankID", shopinfoArr.get(targetNum).bankID)
+                                        intent.putExtra(
+                                            "AccountHolder",
+                                            shopinfoArr.get(targetNum).accountHolder
+                                        )
+                                        intent.putExtra(
+                                            "ShopKey",
+                                            shopinfoArr.get(targetNum).shopKey
+                                        )
+                                        intent.putExtra("ShopName", shopinfoArr.get(targetNum).name)
+                                        intent.putExtra(
+                                            "MenuArr",
+                                            shopinfoArr.get(targetNum).menuArr
+                                        )
+                                        intent.putExtra(
+                                            "ShopRating",
+                                            shopinfoArr.get(targetNum).shopRate
+                                        )
+                                        startActivity(intent)
 
-                                }
+                                    }
 
-                                if (ShopButton.visibility == GONE) {
-                                    ShopButton.visibility = VISIBLE
-                                } else {
-                                    ShopButton.visibility == GONE
+                                    if (ShopButton.visibility == GONE) {
+                                        ShopButton.visibility = VISIBLE
+                                    } else {
+                                        ShopButton.visibility == GONE
+                                    }
                                 }
 
                                 return false
