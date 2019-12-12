@@ -30,6 +30,7 @@ class PaymentActivity : AppCompatActivity() {
     private lateinit var address : String
     private lateinit var accountHolder : String
     private lateinit var orderDay : String
+    private lateinit var customer_phoneNum : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
@@ -45,6 +46,7 @@ class PaymentActivity : AppCompatActivity() {
         bankID = intent.extras.getString("BankID")
         address = intent.extras.getString("Address")
         accountHolder = intent.extras.getString("AccountHolder")
+        customer_phoneNum = intent.extras.getString("CustomerPhoneNum")
 
         addressText.text = address
 
@@ -75,10 +77,10 @@ class PaymentActivity : AppCompatActivity() {
             orderDay = orderdayDataFomat.format(timenow)
             //DB에 올리기
             database = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/")
-            writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid,false,shopName,orderDay,shopKey)
+            writeNewOrderInfo(pay, customer_phoneNum, customerRequest,orderTime,uid,false,shopName,orderDay,shopKey)
             var order_key_shop = order_key
             database = FirebaseDatabase.getInstance().getReference("/Customers/"+uid+"/")//손님 DB에도 올려야함
-            writeNewOrderInfo(pay, "0", customerRequest,orderTime,uid,false,shopName,orderDay,shopKey)
+            writeNewOrderInfo(pay, customer_phoneNum, customerRequest,orderTime,uid,false,shopName,orderDay,shopKey)
             for(orderMenu in orderMenuList){//주문한 매뉴를 DB에 올리기
                 database = FirebaseDatabase.getInstance().getReference("/shops/"+shopKey+"/")
                 writeNewOrderMenu(orderMenu.name,orderMenu.amounts, order_key_shop)

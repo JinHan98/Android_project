@@ -31,6 +31,7 @@ class ShopInfoActivity :AppCompatActivity() {
     private lateinit var bankID : String
     private lateinit var address : String
     private lateinit var accountHolder : String
+    private lateinit var customer_phoneNum : String
     var reviewList : ArrayList<Review> = arrayListOf()
     var reviewAdapter = ReviewAdapter(this,reviewList)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,6 +115,7 @@ class ShopInfoActivity :AppCompatActivity() {
                 orderintent.putExtra("Bank",bank)
                 orderintent.putExtra("BankID",bankID)
                 orderintent.putExtra("AccountHolder",accountHolder)
+                orderintent.putExtra("CustomerPhoneNum",customer_phoneNum)
                 finish()
                 startActivity(orderintent)
             } else {
@@ -194,10 +196,28 @@ class ShopInfoActivity :AppCompatActivity() {
     private fun setLoginStatus(){
         mAuthStateListener = object : FirebaseAuth.AuthStateListener{
             override fun onAuthStateChanged(p0: FirebaseAuth) {
-                var message : String
                 if(p0.currentUser != null){//로그인이 되어있냐
                     loginStatus = true
                     uid = p0.uid!!//아이디 만들때 무조건 uid 넣을것기 때문에 널일수없음.
+                    var db = FirebaseDatabase.getInstance().getReference("/Customers/")
+                    val valeventlistener = object : ValueEventListener {
+                        override fun onDataChange(p0: DataSnapshot) {
+                            for (snapshot: DataSnapshot in p0.children) {
+                                val value = snapshot.getValue(Customer::class.java)
+                                if (value != null) {
+                                    val valueKey = snapshot.key.toString()
+                                    if (valueKey.equals(uid)) {
+                                        customer_phoneNum = value.phonenum
+                                    }
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(p0: DatabaseError) {
+                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        }
+                    }
+                    db.addListenerForSingleValueEvent(valeventlistener)
                 }
                 else {
                     loginStatus = false

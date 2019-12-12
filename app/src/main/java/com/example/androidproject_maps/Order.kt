@@ -3,9 +3,11 @@ package com.example.androidproject_maps
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.text.TextUtils
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.size
 import kotlinx.android.synthetic.main.order_item.view.*
 import kotlinx.android.synthetic.main.order_list.*
 
@@ -22,6 +24,7 @@ class Order : AppCompatActivity() {
     private lateinit var bankID : String
     private lateinit var address : String
     private lateinit var accountHolder : String
+    private lateinit var customer_phoneNum : String
     var pay : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,7 @@ class Order : AppCompatActivity() {
         bankID = intent.extras.getString("BankID")
         address = intent.extras.getString("Address")
         accountHolder = intent.extras.getString("AccountHolder")
+        customer_phoneNum = intent.extras.getString("CustomerPhoneNum")
 
 
         var amounts : Array<Int> = Array(menuArr.size,{0})
@@ -55,7 +59,7 @@ class Order : AppCompatActivity() {
 
                 var customerRequest : String
                 //요청사항 저장
-                if(customer_request_View.text.toString()==null){
+                if(TextUtils.isEmpty(customer_request_View.text)){
                     customerRequest = "요청사항 없음"
                 }
                 else{
@@ -63,7 +67,7 @@ class Order : AppCompatActivity() {
                 }
                 //주문한 매뉴, 수량 저장
                 var ordermenuList = arrayListOf<MenuFood>()
-                for (i in menuArr.indices) {
+                for (i in 0..orderlist.size-1) {
                     val view = orderlist.getChildAt(i)
                     var num = view.order_amounts.text.toString()
                     if(num.equals("0")){
@@ -92,6 +96,7 @@ class Order : AppCompatActivity() {
                 paymentintent.putExtra("Bank",bank)
                 paymentintent.putExtra("BankID",bankID)
                 paymentintent.putExtra("AccountHolder",accountHolder)
+                paymentintent.putExtra("CustomerPhoneNum",customer_phoneNum)
                 finish()
                 startActivity(paymentintent)
             }
